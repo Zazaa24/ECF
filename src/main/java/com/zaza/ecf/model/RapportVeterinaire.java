@@ -2,6 +2,7 @@ package com.zaza.ecf.model;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -29,9 +30,8 @@ public class RapportVeterinaire {
     @JoinColumn(name = "utilisateur_id",nullable = false)
     private Utilisateur utilisateur;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "alimentation_id", nullable = true)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Alimentation alimentation;
 
     @ManyToOne

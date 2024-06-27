@@ -1,4 +1,4 @@
-package com.zaza.ecf.controller;
+package com.zaza.ecf.restController;
 
 
 
@@ -26,7 +26,7 @@ public class AlimentationController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Alimentation creerAlimentation(@RequestBody Alimentation alimentation ) {
-        return alimentationService.creerAlimentation(alimentation);
+         return alimentationService.creerAlimentation(alimentation);
     }
 
     @PutMapping(path = "/alimentation/{id}")

@@ -19,7 +19,6 @@ public class Race {
     private String label;
 
     @OneToMany(mappedBy = "race")
-    @JsonBackReference
     private Set<Animal> animals;
 
     public String getLabel() {

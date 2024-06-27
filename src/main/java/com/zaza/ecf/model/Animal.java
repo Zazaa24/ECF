@@ -2,6 +2,7 @@ package com.zaza.ecf.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -24,21 +25,18 @@ public class Animal {
     private String etat;
 
     @OneToMany(mappedBy = "animal")
-    @JsonBackReference
+    @JsonIgnore
     private Set<Alimentation> alimentations;
 
     @OneToMany(mappedBy = "animal")
-    @JsonBackReference
     private Set<RapportVeterinaire> rapportVeterinaires;
 
     @ManyToOne
     @JoinColumn(name = "race_id",nullable = false)
-    @JsonManagedReference
     private Race race;
 
     @ManyToOne
     @JoinColumn(name = "habitat_id",nullable = false)
-    @JsonManagedReference
     private Habitat habitat;
 
     public String getEtat() {

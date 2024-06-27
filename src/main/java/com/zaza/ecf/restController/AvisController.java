@@ -1,4 +1,4 @@
-package com.zaza.ecf.controller;
+package com.zaza.ecf.restController;
 
 import com.zaza.ecf.model.Avis;
 import com.zaza.ecf.service.AvisService;

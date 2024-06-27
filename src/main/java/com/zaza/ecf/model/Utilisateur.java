@@ -1,6 +1,7 @@
 package com.zaza.ecf.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -30,7 +31,6 @@ public class Utilisateur {
 
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)
-    @JsonManagedReference
     private Role role;
 
     @OneToMany(mappedBy = "utilisateur")

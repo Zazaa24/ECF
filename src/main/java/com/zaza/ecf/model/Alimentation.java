@@ -1,10 +1,11 @@
 package com.zaza.ecf.model;
 
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+
 
 import java.sql.Timestamp;
 
@@ -30,11 +31,6 @@ public class Alimentation {
     @ManyToOne
     @JoinColumn(name = "utilisateur_id",nullable = false)
     private Utilisateur utilisateur;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "rapport_id",nullable = true)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private RapportVeterinaire rapportVeterinaire;
 
     @ManyToOne
     @JoinColumn(name = "animal_id",nullable = false)
@@ -64,13 +60,6 @@ public class Alimentation {
         this.id = id;
     }
 
-    public RapportVeterinaire getRapportVeterinaire() {
-        return rapportVeterinaire;
-    }
-
-    public void setRapportVeterinaire(RapportVeterinaire rapportVeterinaire) {
-        this.rapportVeterinaire = rapportVeterinaire;
-    }
 
     public Animal getAnimal() {
         return animal;

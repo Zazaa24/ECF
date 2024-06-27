@@ -20,7 +20,6 @@ public class Role {
     private String label;
 
     @OneToMany(mappedBy = "role")
-    @JsonBackReference
     private Set <Utilisateur> utilisateurs;
 
     public Set<Utilisateur> getUtilisateurs() {

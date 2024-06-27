@@ -26,7 +26,6 @@ public class Habitat {
     private String commentaireHabitat;
 
     @OneToMany(mappedBy = "habitat")
-    @JsonBackReference
     private Set<Animal> animals;
 
     public String getCommentaireHabitat() {
