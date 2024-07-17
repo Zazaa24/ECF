@@ -2,14 +2,14 @@ package com.zaza.ecf.model;
 
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 
 @Entity
@@ -29,11 +29,11 @@ public class Alimentation implements Serializable {
 
     @Column(name = "date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date date;
+    private LocalDate date;
 
     @Column(name = "time")
     @DateTimeFormat(pattern = "HH-mm")
-    private Time time;
+    private LocalTime time;
 
     @ManyToOne
     @JoinColumn(name = "utilisateur_id",nullable = false)
@@ -84,19 +84,19 @@ public class Alimentation implements Serializable {
         this.quantite = quantite;
     }
 
-    public Time getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(Time time) {
+    public void setTime(LocalTime time) {
         this.time = time;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

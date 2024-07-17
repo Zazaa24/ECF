@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Arcadia - Index</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link th:src="@{/img/favicon.png}" src="../static/img/favicon.png" rel="icon">
+  <link th:src="@{/img/apple-touch-icon.png}" src="../static/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap"  
+    th:href="@{https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap}" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link th:href="@{/vendor/aos/aos.css}" href="../static/vendor/aos/aos.css" rel="stylesheet">
+  <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.css}" href="../static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link th:href="@{/vendor/boxicons/css/boxicons.min.css}" href="../static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link th:href="@{/vendor/glightbox/css/glightbox.min.css}" href="../static/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link th:href="@{/vendor/swiper/swiper-bundle.min.css}" href="../static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link th:href="@{/css/style.css}" href="../static/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+      <div class="logo me-auto">
+        <h1><a th:href="accueil" href="accueil.html">Arcadia</a></h1>
+      </div>
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link" th:href="accueil" href="./accueil.html">Accueil</a></li>
+          <li><a class="nav-link active" th:href="services" href="./services.html">Nos services</a></li>
+          <li><a class="nav-link" th:href="habitats" href="./habitats.html">Nos habitats</a></li>
+          <li><a class="nav-link" th:href="contact" href="./contact.html">Contact</a></li>
+          <li><button class="btn" data-bs-toggle="modal" data-bs-target="#loginModal">Se connecter</button></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Services Section ======= -->
+    <section th:each="service:${listeService}" class="description">
+
+        <div class="container">
+  
+          <div class="row">
+            <div class="d-flex flex-column justify-contents-center" data-aos="fade-left">
+              <div class="content pt-4 pt-lg-0">
+                <h3 th:text="${service.nom}">Service 1</h3>
+                <p class="fst-italic" th:text="${service.description}">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                </p>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </section>
+      <!-- End services Section -->
+
+    <!-- ======= Modal ======= -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Se connecter à Arcadia</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="email" class="col-form-label">Adresse e-mail:</label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="password" class="col-form-label">Mot de passe:</label>
+                      <input type="password" class="form-control" id="password" required>
+                  </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-primary custom-primary-button">Se connecter</button>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- End modal -->
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="mt-3">
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Arcadia</span></strong>. All Rights Reserved
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <!-- Vendor JS Files -->
+  <script th:src="@{/vendor/aos/aos.js}" src="../static/vendor/aos/aos.js"></script>
+  <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}" src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script th:src="@{/vendor/glightbox/js/glightbox.min.js}" src="../static/vendor/glightbox/js/glightbox.min.js"></script>
+  <script th:src="@{/vendor/isotope-layout/isotope.pkgd.min.js}" src="../static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script th:src="@{/vendor/swiper/swiper-bundle.min.js}" src="../static/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script th:src="@{/js/main.js}" src="../static/js/main.js"></script>
+
+</body>
+
+</html>
