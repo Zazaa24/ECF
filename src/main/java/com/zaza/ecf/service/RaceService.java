@@ -5,6 +5,7 @@ package com.zaza.ecf.service;
 import com.zaza.ecf.model.Race;
 import com.zaza.ecf.repository.RaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +20,7 @@ public class RaceService {
     private RaceRepository repo;
 
     public List<Race> recupererListeRace() {
-        return repo.findAll();
+        return repo.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     public Race creerRace (Race race) {

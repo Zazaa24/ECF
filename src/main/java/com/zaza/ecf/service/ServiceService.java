@@ -4,6 +4,7 @@ package com.zaza.ecf.service;
 import com.zaza.ecf.model.ServiceZoo;
 import com.zaza.ecf.repository.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +20,7 @@ public class ServiceService {
     private ServiceRepository repo;
 
     public List<ServiceZoo> recupererListeService() {
-        return repo.findAll();
+        return repo.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     public ServiceZoo creerService (ServiceZoo serviceZoo) {

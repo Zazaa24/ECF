@@ -3,6 +3,7 @@ package com.zaza.ecf.service;
 import com.zaza.ecf.model.Avis;
 import com.zaza.ecf.repository.AvisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +18,7 @@ public class AvisService {
     private AvisRepository repo;
 
     public List<Avis> recupererListeAvis(){
-        return repo.findAll();
+        return repo.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     public List<Avis> recupererListeAvisParVisible(Boolean estVisible){

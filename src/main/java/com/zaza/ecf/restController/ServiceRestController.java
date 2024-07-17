@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/service")
 
-public class ServiceController {
+public class ServiceRestController {
 
     @Autowired
     public ServiceService serviceService;
@@ -27,14 +27,14 @@ public class ServiceController {
     @PostMapping(path = "/service",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ServiceZoo creerService(@RequestBody ServiceZoo serviceZoo ) {
+    public ServiceZoo creerService(@RequestBody ServiceZoo serviceZoo) {
         return serviceService.creerService(serviceZoo);
     }
 
     @PutMapping(path = "/service/{id}")
-    public ServiceZoo modifierService(@RequestBody ServiceZoo serviceZoo,@PathVariable Long id) {
-          serviceZoo.setId(id);
-          return serviceService.modifierService(serviceZoo);
+    public ServiceZoo modifierService(@RequestBody ServiceZoo serviceZoo, @PathVariable Long id) {
+        serviceZoo.setId(id);
+        return serviceService.modifierService(serviceZoo);
     }
 
     @DeleteMapping(path = "/service/{id}")

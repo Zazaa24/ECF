@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
 
 <head>
   <meta charset="utf-8">
@@ -10,247 +11,300 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link th:href="@img/favicon.png" rel="icon">
-  <link th:href="@img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link th:src="@{/img/favicon.png}" src="../static/img/favicon.png" rel="icon">
+  <link th:src="@{/img/apple-touch-icon.png}" src="../static/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap"
+        th:href="@{https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap}"
+        rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link th:href="@vendor/aos/aos.css" rel="stylesheet">
-  <link th:href="@vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link th:href="@vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link th:href="@vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link th:href="@vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link th:href="@vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link th:href="@{/vendor/aos/aos.css}" href="../static/vendor/aos/aos.css" rel="stylesheet">
+  <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" href="../static/vendor/bootstrap/css/bootstrap.min.css"
+        rel="stylesheet">
+  <link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.css}"
+        href="../static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link th:href="@{/vendor/boxicons/css/boxicons.min.css}" href="../static/vendor/boxicons/css/boxicons.min.css"
+        rel="stylesheet">
+  <link th:href="@{/vendor/glightbox/css/glightbox.min.css}" href="../static/vendor/glightbox/css/glightbox.min.css"
+        rel="stylesheet">
+  <link th:href="@{/vendor/swiper/swiper-bundle.min.css}" href="../static/vendor/swiper/swiper-bundle.min.css"
+        rel="stylesheet">
 
   <!-- Main CSS File -->
-  <link th:href="@css/style.css" rel="stylesheet">
+  <link th:href="@{/css/style.css}" href="../static/css/style.css" rel="stylesheet">
 </head>
 
 <body>
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top d-flex align-items-center">
-    <div class="container d-flex align-items-center" style="background-color: #E5F8F2;">
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top d-flex align-items-center">
+  <div class="container d-flex align-items-center" style="background-color: #E5F8F2;">
 
-      <div class="logo me-auto">
-        <h1><a href="index.html">Arcadia</a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+    <div class="logo me-auto">
+      <h1><a th:href="accueil" href="accueil.html">Arcadia</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+    </div>
+
+    <nav id="navbar" class="navbar order-last order-lg-0">
+      <ul>
+        <li><a class="nav-link active" th:href="accueil" href="./accueil.html">Accueil</a></li>
+        <li><a class="nav-link" th:href="services" href="./services.html">Nos services</a></li>
+        <li><a class="nav-link" th:href="habitats" href="./habitats.html">Nos habitats</a></li>
+        <li><a class="nav-link" th:href="contact" href="./contact.html">Contact</a></li>
+        <li>
+          <button class="btn" data-bs-toggle="modal" data-bs-target="#loginModal">Se connecter</button>
+        </li>
+      </ul>
+      <i class="bi bi-list mobile-nav-toggle"></i>
+    </nav><!-- .navbar -->
+
+  </div>
+</header><!-- End Header -->
+
+<main id="main">
+
+  <!-- ======= Description Section ======= -->
+  <section id="description" class="description">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-lg-6" data-aos="zoom-in">
+          <img th:src="@{/img/description1.jpg}" src="../static/img/description1.jpg" class="img-fluid" alt="">
+        </div>
+        <div class="col-lg-6 d-flex flex-column justify-contents-center" data-aos="fade-left">
+          <div class="content pt-4 pt-lg-0">
+            <h3>Qui sommes nous?</h3>
+            <p class="fst-italic">
+              Notre zoo est un lieu magique où vous pouvez découvrir la diversité de la faune mondiale.
+              Situé près de Brocéliande, notre établissement offre aux visiteurs l’opportunité d’observer, d’apprendre
+              et de se familiariser avec une variété d’animaux provenant des quatre coins du globe.
+              Que vous soyez passionné par les grands félins, les oiseaux exotiques ou les reptiles fascinants, notre
+              zoo a quelque chose à offrir à tous les amoureux de la nature.
+            </p>
+          </div>
+        </div>
       </div>
 
-      <nav id="navbar" class="navbar order-last order-lg-0">
-        <ul>
-          <li><a class="nav-link scrollto active" href="#accueil">Accueil</a></li>
-          <li><a class="nav-link scrollto" href="#services">Nos services</a></li>
-          <li><a class="nav-link scrollto " href="#habitats">Nos habitats</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li><a class="nav-link scrollto" href="#connecter">Se connecter</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+      <div class="row mt-3">
+        <div class="col-lg-6 d-flex flex-column justify-contents-center" data-aos="fade-left">
+          <div class="content pt-4 pt-lg-0">
+            <p class="fst-italic">
+              Ce que vous trouverez au Zoo de Arcadia :
+            </p>
+            <ul>
+              <li><i class="bi bi-dot"></i> <b>Des espèces rares et menacées</b> : Nous sommes fiers d’accueillir des
+                animaux en voie de disparition et de contribuer à leur préservation.
+              </li>
+              <li><i class="bi bi-dot"></i> <b>Des habitats naturels</b> : Nos enclos sont conçus pour recréer les
+                environnements naturels des animaux. Explorez la forêt tropicale, la savane africaine et la jungle
+                amazonienne en une seule visite.
+              </li>
+              <li><i class="bi bi-dot"></i> <b>Des activités éducatives</b> : Assistez à des présentations interactives,
+                participez à des ateliers sur la conservation et découvrez les efforts que nous déployons pour protéger
+                la biodiversité.
+              </li>
+              <li><i class="bi bi-dot"></i> <b>Des aires de détente</b> : Profitez de nos aires de pique-nique, de nos
+                aires de jeux pour enfants et de nos cafés pour une journée inoubliable en famille.
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="zoom-in">
+          <img th:src="@{/img/description2.jpg}" src="../static/img/description2.jpg" class="img-fluid" alt="">
+        </div>
+      </div>
 
     </div>
-  </header><!-- End Header -->
+  </section><!-- End Description Section -->
 
-  <main id="main">
-
-    <!-- ======= Description Section ======= -->
-    <section id="description" class="description">
-      <div class="container">
-
-        <div class="row">
-          <div class="col-lg-6" data-aos="zoom-in">
-            <img src="img/description1.jpg" class="img-fluid" alt="">
-          </div>
-          <div class="col-lg-6 d-flex flex-column justify-contents-center" data-aos="fade-left">
-            <div class="content pt-4 pt-lg-0">
-              <h3>Qui sommes nous?</h3>
-              <p class="fst-italic">
-                Notre zoo est un lieu magique où vous pouvez découvrir la diversité de la faune mondiale. 
-                Situé près de Brocéliande, notre établissement offre aux visiteurs l’opportunité d’observer, d’apprendre et de se familiariser avec une variété d’animaux provenant des quatre coins du globe. 
-                Que vous soyez passionné par les grands félins, les oiseaux exotiques ou les reptiles fascinants, notre zoo a quelque chose à offrir à tous les amoureux de la nature.
-              </p>
-            </div>
+  <!-- ======= Services Section ======= -->
+  <section id="services" class="description">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6" data-aos="zoom-in">
+          <img th:src="@{/img/services.jpg}" src="../static/img/services.jpg" class="img-fluid" alt="">
+        </div>
+        <div class="col-lg-6 d-flex flex-column justify-contents-center" data-aos="fade-left">
+          <div class="content pt-4 pt-lg-0">
+            <h3>Nos services</h3>
+            <p class="fst-italic">
+              Nous offrons un éventail de service afin de rendre votre visite la plus agréable possible:
+            </p>
+            <ul>
+              <li th:each="service:${listeService}"><i class="bi bi-dot"></i><span th:text="${service.nom}"></span></li>
+            </ul>
           </div>
         </div>
-
-        <div class="row mt-3">
-            <div class="col-lg-6 d-flex flex-column justify-contents-center" data-aos="fade-left">
-              <div class="content pt-4 pt-lg-0">
-                <p class="fst-italic">
-                  Ce que vous trouverez au Zoo de Arcadia :
-                </p>
-                <ul>
-                  <li><i class="bi bi-dot"></i> <b>Des espèces rares et menacées</b> : Nous sommes fiers d’accueillir des animaux en voie de disparition et de contribuer à leur préservation.</li>
-                  <li><i class="bi bi-dot"></i> <b>Des habitats naturels</b> : Nos enclos sont conçus pour recréer les environnements naturels des animaux. Explorez la forêt tropicale, la savane africaine et la jungle amazonienne en une seule visite.</li>
-                  <li><i class="bi bi-dot"></i> <b>Des activités éducatives</b> : Assistez à des présentations interactives, participez à des ateliers sur la conservation et découvrez les efforts que nous déployons pour protéger la biodiversité.</li>
-                  <li><i class="bi bi-dot"></i> <b>Des aires de détente</b> : Profitez de nos aires de pique-nique, de nos aires de jeux pour enfants et de nos cafés pour une journée inoubliable en famille.</li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-lg-6" data-aos="zoom-in">
-                <img src="img/description2.jpg" class="img-fluid" alt="">
-            </div>
-          </div>
-
       </div>
-    </section><!-- End Description Section -->
 
-    <!-- ======= Services Section ======= -->
-    <section id="services" class="description">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-6" data-aos="zoom-in">
-                <img src="img/description1.jpg" class="img-fluid" alt="">
-            </div>
-            <div class="col-lg-6 d-flex flex-column justify-contents-center" data-aos="fade-left">
-              <div class="content pt-4 pt-lg-0">
-                <h3>Nos services</h3>
-                <p class="fst-italic">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                  magna aliqua.
-                </p>
-                <ul>
-                  <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                  <li><i class="bi bi-check-circle"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-                  <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperd</li>
-                </ul>
-                <p>
-                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate tera noden carma palorp mades tera.
-                </p>
-              </div>
-            </div>
-          </div>
-  
-        </div>
-      </section><!-- End services Section -->
+    </div>
+  </section><!-- End services Section -->
 
       <!-- ======= Habitats Section ======= -->
-    <section id="description" class="description">
+    <section id="habitats" class="description">
         <div class="container">
   
           <div class="row">
             <div class="col-lg-6 d-flex flex-column justify-contents-center" data-aos="fade-left">
               <div class="content pt-4 pt-lg-0">
                 <h3>Nos habitats</h3>
-                <p class="fst-italic">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                  magna aliqua.
-                </p>
+                <p class="fst-italic">Les animaux du Zoo vivent dans des habitats conçus de manière à se rapprocher de la nature.
+                  Les espaces reproduisent de façon aussi authentique que possible l'habitat naturel des animaux:</p>
                 <ul>
-                  <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                  <li><i class="bi bi-check-circle"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-                  <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperd</li>
+                  <li th:each="habitat:${listeHabitat}"><i class="bi bi-dot" ></i><span th:text="${habitat.nom}"></span></li>
                 </ul>
-                <p>
-                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate tera noden carma palorp mades tera.
-                </p>
               </div>
             </div>
             <div class="col-lg-6" data-aos="zoom-in">
-                <img src="assets/img/description1.jpg" class="img-fluid" alt="">
+                <img th:src="@{/img/description1.jpg}" src="../static/img/Description1.jpg" class="img-fluid" alt="">
             </div>
           </div>
   
         </div>
       </section><!-- End habitats Section -->
 
-    <!-- ======= Avis Section ======= -->
-    <section id="avis" class="avis">
-      <div class="container">
-
-        <div class="section-title" data-aos="fade-up">
-          <h2>Ils nous ont visités</h2>
-        </div>
-
-        <div class="avis-slider swiper" data-aos="fade-up" data-aos-delay="100">
-          <div class="swiper-wrapper">
-
-            <div class="swiper-slide">
-              <div class="avis-item">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  C'était nul
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <h3>Saul Goodman</h3>
-              </div>
-            </div>
-
-            <div class="swiper-slide">
-              <div class="avis-item">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <h3>Sara Wilsson</h3>
-              </div>
-            </div>
-
-            <div class="swiper-slide">
-              <div class="avis-item">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <h3>Jena Karlis</h3>
-              </div>
-            </div>
-
-            <div class="swiper-slide">
-              <div class="avis-item">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <h3>Matt Brandon</h3>
-              </div>
-            </div>
-
-            <div class="swiper-slide">
-              <div class="avis-item">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <h3>John Larson</h3>
-              </div>
-            </div>
-
-          </div>
-          <div class="swiper-pagination"></div>
-        </div>
-
-      </div>
-    </section><!-- End avis Section -->
-
-  </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
+  <!-- ======= Horaires Section ======= -->
+  <section id="horaires" class="description">
     <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><span>Arcadia</span></strong>. All Rights Reserved
+      <div class="row">
+        <div class="col-lg-6" data-aos="zoom-in">
+          <img th:src="@{/img/Horaires.jpg}" src="../static/img/Horaires.jpg" class="img-fluid" alt="">
+        </div>
+        <div class="col-lg-6 d-flex flex-column justify-contents-center" data-aos="fade-left">
+          <div class="content pt-4 pt-lg-0">
+            <h3>Nos horaires</h3>
+            <p class="fst-italic">
+              Nous sommes ouverts tous les jours:
+            </p>
+            <ul>
+              <li th:each="horaire:${listeHoraire}"><i class="bi bi-dot"></i><span th:text="${horaire.jour}"></span><span>: </span><span th:text="${horaire.heure}"></span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End services Section -->
+
+  <!-- ======= Avis Section ======= -->
+  <section id="avis" class="avis">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Ils nous ont visités</h2>
+      </div>
+
+      <div class="avis-slider swiper" data-aos="fade-up" data-aos-delay="100">
+        <div class="swiper-wrapper">
+
+          <div class="swiper-slide" th:each="avis:${listeAvis}">
+            <div class="avis-item">
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                <span th:text="${avis.commentaire}"></span>
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+              <h3 th:text="${avis.pseudo}">Saul Goodman</h3>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col text-center">
+          <button class="btn btn-primary custom-primary-button" data-bs-toggle="modal" data-bs-target="#avisModal">
+            Donnez vous aussi votre avis
+          </button>
+        </div>
       </div>
     </div>
-  </footer><!-- End Footer -->
 
-  <!-- Vendor JS Files -->
-  <script th:src="vendor/aos/aos.js"></script>
-  <script th:src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script th:src="vendor/glightbox/js/glightbox.min.js"></script>
-  <script th:src="vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script th:src="vendor/swiper/swiper-bundle.min.js"></script>
-  <script th:src="vendor/php-email-form/validate.js"></script>
+  </section><!-- End avis Section -->
 
-  <!-- Template Main JS File -->
-  <script th:src="js/main.js"></script>
+  <!-- ======= Modal ======= -->
+  <div class="modal fade" id="avisModal" tabindex="-1" aria-labelledby="avisModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <form action="#" th:action="@{/creerAvisModel}" method="post" th:object="${nouvelAvis}">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="avisModalLabel">Donnez votre avis</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3">
+              <label class="col-form-label">Nom:</label>
+              <input type="text" class="form-control" th:field="*{pseudo}" required />
+            </div>
+            <div class="mb-3">
+              <label class="col-form-label">Avis:</label>
+              <textarea class="form-control" th:field="*{commentaire}" required></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+          <button type="submit" class="btn btn-primary custom-primary-button">Envoyer</button>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">Se connecter à Arcadia</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="email" class="col-form-label">Adresse e-mail:</label>
+              <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="col-form-label">Mot de passe:</label>
+              <input type="password" class="form-control" id="password" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+          <button type="button" class="btn btn-primary custom-primary-button">Se connecter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- End modal -->
+</main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+<footer id="footer">
+  <div class="container">
+    <div class="copyright">
+      &copy; Copyright <strong><span>Arcadia</span></strong>. All Rights Reserved
+    </div>
+  </div>
+</footer><!-- End Footer -->
+
+<!-- Vendor JS Files -->
+<script th:src="@{/vendor/aos/aos.js}" src="../static/vendor/aos/aos.js"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"
+        src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/vendor/glightbox/js/glightbox.min.js}" src="../static/vendor/glightbox/js/glightbox.min.js"></script>
+<script th:src="@{/vendor/isotope-layout/isotope.pkgd.min.js}"
+        src="../static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script th:src="@{/vendor/swiper/swiper-bundle.min.js}" src="../static/vendor/swiper/swiper-bundle.min.js"></script>
+
+<!-- Main JS File -->
+<script th:src="@{/js/main.js}" src="../static/js/main.js"></script>
 
 </body>
 

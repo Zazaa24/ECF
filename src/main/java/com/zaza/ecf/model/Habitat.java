@@ -1,7 +1,6 @@
 package com.zaza.ecf.model;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -25,8 +24,12 @@ public class Habitat {
     @Column(name = "commentaire_habitat")
     private String commentaireHabitat;
 
+
     @OneToMany(mappedBy = "habitat")
     private Set<Animal> animals;
+
+    @OneToMany(mappedBy = "habitat")
+    private Set<Image> images;
 
     public String getCommentaireHabitat() {
         return commentaireHabitat;
@@ -66,5 +69,21 @@ public class Habitat {
 
     public void setAnimals(Set<Animal> animals) {
         this.animals = animals;
+    }
+
+    public Set<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<Image> images) {
+        this.images = images;
+    }
+
+    public Image[] getImagesArray(){
+        if (this.images != null ){
+        Image[] imageArray = this.images.toArray(new Image[this.images.size()]);
+        return imageArray;
+        }
+        return new Image[0];
     }
 }

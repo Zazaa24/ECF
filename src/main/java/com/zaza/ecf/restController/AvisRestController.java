@@ -17,7 +17,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/avis")
-public class AvisController {
+public class AvisRestController {
 
     @Autowired
     public AvisService avisService;

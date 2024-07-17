@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/rapportVeterinaire")
 
-public class RapportVeterinaireController {
+public class RapportVeterinaireRestController {
 
     @Autowired
     public RapportVeterinaireService rapportVeterinaireService;

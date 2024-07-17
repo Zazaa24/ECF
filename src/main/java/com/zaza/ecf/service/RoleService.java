@@ -4,6 +4,7 @@ package com.zaza.ecf.service;
 import com.zaza.ecf.model.Role;
 import com.zaza.ecf.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +19,7 @@ public class RoleService {
     private RoleRepository repo;
 
     public List<Role> recupererListeRole() {
-        return repo.findAll();
+        return repo.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     public Role creerRole (Role role) {

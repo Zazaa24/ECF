@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/habitat")
-public class HabitatController {
+public class HabitatRestController {
 
     @Autowired
     public HabitatService habitatService;

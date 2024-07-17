@@ -5,6 +5,7 @@ package com.zaza.ecf.service;
 import com.zaza.ecf.model.Utilisateur;
 import com.zaza.ecf.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +20,7 @@ public class UtilisateurService {
     private UtilisateurRepository repo;
 
     public List<Utilisateur> recupererListeUtilisateur() {
-        return repo.findAll();
+        return repo.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     public Utilisateur creerUtilisateur (Utilisateur utilisateur) {

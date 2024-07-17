@@ -3,15 +3,18 @@ package com.zaza.ecf.model;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
-import java.sql.Timestamp;
+import java.io.Serializable;
+import java.sql.Date;
+import java.sql.Time;
+
 
 @Entity
 @Table(name = "alimentation")
-public class Alimentation {
+public class Alimentation implements Serializable {
 
     @Id
     @Column(name = "id")
@@ -25,8 +28,12 @@ public class Alimentation {
     private String quantite;
 
     @Column(name = "date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private Timestamp date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date date;
+
+    @Column(name = "time")
+    @DateTimeFormat(pattern = "HH-mm")
+    private Time time;
 
     @ManyToOne
     @JoinColumn(name = "utilisateur_id",nullable = false)
@@ -77,11 +84,20 @@ public class Alimentation {
         this.quantite = quantite;
     }
 
-    public Timestamp getDate() {
+    public Time getTime() {
+        return time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
+    }
+
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
     }
+
 }

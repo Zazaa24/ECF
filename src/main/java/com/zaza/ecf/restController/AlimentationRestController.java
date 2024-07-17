@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/alimentation")
-public class AlimentationController {
+public class AlimentationRestController {
 
     @Autowired
     public AlimentationService alimentationService;
