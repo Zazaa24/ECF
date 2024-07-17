@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <p> Bonjour <span th:text="${recipientName}"></span>,<br />
+
+        Nous avons le plaisir de vous inviter sur le site Arcadia.<br />
+        Un compte a été créé avec votre adresse mail.<br /><br />
+        
+        Veuillez vous rapprocher de l'administrateur afin d'avoir le mot de passe associé<br /><br />
+        
+        Merci,<br />
+        <span th:text="${senderName}"></span>
+    </p>
+  </body>
+</html>

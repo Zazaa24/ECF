@@ -3,7 +3,9 @@ package com.zaza.ecf.controller;
 
 import com.zaza.ecf.model.Role;
 import com.zaza.ecf.model.Utilisateur;
+import com.zaza.ecf.service.MailService;
 import com.zaza.ecf.service.UtilisateurService;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,8 @@ public class GestionUtilisateurController {
 
     @Autowired
     public UtilisateurService utilisateurService;
+    @Autowired
+    public MailService mailService;
 
     @GetMapping("/gestion-utilisateurs")
     public String gestionUtilisateur(Model model) {
@@ -28,8 +32,9 @@ public class GestionUtilisateurController {
     }
 
     @PostMapping("/creerUtilisateurModel")
-    public String creerUtilisateur(@ModelAttribute("nouvelUtilisateur")Utilisateur utilisateur) {
+    public String creerUtilisateur(@ModelAttribute("nouvelUtilisateur")Utilisateur utilisateur) throws MessagingException {
         utilisateurService.creerUtilisateur(utilisateur);
+        mailService.sendEmailInvitation(utilisateur.getUsername());
         return "redirect:gestion-utilisateurs";
     }
 

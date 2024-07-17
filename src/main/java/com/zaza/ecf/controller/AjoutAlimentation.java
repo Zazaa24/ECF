@@ -3,6 +3,7 @@ package com.zaza.ecf.controller;
 
 import com.zaza.ecf.model.Alimentation;
 
+import com.zaza.ecf.model.Utilisateur;
 import com.zaza.ecf.service.AlimentationService;
 import com.zaza.ecf.service.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,9 @@ public class AjoutAlimentation {
 
     @PostMapping("/creerAlimentationModel")
     public String creerAlimentation(@ModelAttribute("nouvelAlimentation") Alimentation alimentation) {
+        Utilisateur defaultUtilisateur = new Utilisateur();
+        defaultUtilisateur.setId(1L);
+        alimentation.setUtilisateur(defaultUtilisateur);
         alimentationService.creerAlimentation(alimentation);
         return "redirect:ajout-alimentation";
     }

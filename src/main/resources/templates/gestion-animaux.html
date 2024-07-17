@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Arcadia - Index</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link th:src="@{/img/favicon.png}" src="../static/img/favicon.png" rel="icon">
+  <link th:src="@{/img/apple-touch-icon.png}" src="../static/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap"
+    th:href="@{https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap}"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link th:href="@{/vendor/aos/aos.css}" href="../static/vendor/aos/aos.css" rel="stylesheet">
+  <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" href="../static/vendor/bootstrap/css/bootstrap.min.css"
+    rel="stylesheet">
+  <link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.css}"
+    href="../static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link th:href="@{/vendor/boxicons/css/boxicons.min.css}" href="../static/vendor/boxicons/css/boxicons.min.css"
+    rel="stylesheet">
+  <link th:href="@{/vendor/glightbox/css/glightbox.min.css}" href="../static/vendor/glightbox/css/glightbox.min.css"
+    rel="stylesheet">
+  <link th:href="@{/vendor/swiper/swiper-bundle.min.css}" href="../static/vendor/swiper/swiper-bundle.min.css"
+    rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link th:href="@{/css/style.css}" href="../static/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+      <div class="logo me-auto">
+        <h1><a th:href="accueil" href="accueil.html">Arcadia</a></h1>
+      </div>
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link" th:href="accueil" href="./accueil.html">Accueil</a></li>
+          <li><a class="nav-link" th:href="services" href="./services.html">Nos services</a></li>
+          <li><a class="nav-link" th:href="habitats" href="./habitats.html">Nos habitats</a></li>
+          <li><a class="nav-link" th:href="contact" href="./contact.html">Contact</a></li>
+          <li class="dropdown"><a href="#"><span>Espace administrateur</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a class="nav-link" th:href="gestion-utilisateurs" href="./gestion-utilisateurs.html">Gestion
+                  des utilisateurs</a></li>
+              <li><a class="nav-link" th:href="gestion-services" href="./gestion-services.html">Gestion des services</a>
+              </li>
+              <li><a class="nav-link" th:href="gestion-habitats" href="./gestion-habitats.html">Gestion des habitats</a>
+              </li>
+              <li><a class="nav-link" th:href="gestion-races" href="./gestion-races.html">Gestion des races</a>
+              </li>
+              <li><a class="nav-link active" th:href="gestion-animaux" href="./gestion-animaux.html">Gestion des
+                  animaux</a>
+              </li>
+              <li><a class="nav-link" th:href="gestion-horaires" href="./gestion-horaires.html">Gestion des horaires</a>
+              </li>
+              <li><a class="nav-link" th:href="visualisation-rapports"
+                  href="./visualisation-rapports.html">Visualisation des rapports</a></li>
+              <li><a class="nav-link" th:href="vues-animaux" href="./vues-animaux.html">Vues animaux</a></li>
+            </ul>
+          </li>
+          <li><button class="btn">Se déconnecter</button></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Animaux Section ======= -->
+    <section class="description">
+      <div class="align-items-center mt-5">
+        <div class="container mt-5 px-2">
+          <h3>Gestion des animaux</h3>
+          <div class="mb-2 d-flex justify-content-between align-items-center">
+            <div class="position-relative">
+              <span class="position-absolute search"><i class="fa fa-search"></i></span>
+              <input id="animauxFilter" class="form-control w-100"
+                onkeyup="filtreGenerique('animauxFilter', 'animauxTable', 0, 1)" placeholder="Rechercher par id ou nom">
+            </div>
+            <div class="px-2">
+              <button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
+                data-bs-target="#animalModal">Ajouter un animal</i>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-responsive" id="animauxTable">
+
+              <thead>
+                <tr class="bg-light">
+                  <th scope="col" width="5%">#</th>
+                  <th scope="col" width="15%">Prenom</th>
+                  <th scope="col" width="15%">Race</th>
+                  <th scope="col" width="15%">Habitat</th>
+                  <th scope="col" width="20%">Etat</th>
+                  <th scope="col" width="10%">Nombre d'images</th>
+                  <th scope="col" class="text-end" width="10%">Modifier</th>
+                  <th scope="col" class="text-end" width="10%">Supprimer</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="animal:${listeAnimal}">
+                  <td th:text="${animal.id}"><span></span></td>
+                  <td th:text="${animal.prenom}"><span></span></td>
+                  <td th:text="${animal.race.label}"><span></span></td>
+                  <td th:text="${animal.habitat.nom}"><span></span></td>
+                  <td th:text="${animal.etat}"><span></span></td>
+                  <td><span>0&nbsp;<button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
+                      th:attr="data-bs-target='#modifierImageAnimalModal'+${animal.id}"><i class="bi bi-pencil"></i></button></span></td>
+                  <td class="text-end"><button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
+                      th:attr="data-bs-target='#modifierAnimalModal'+${animal.id}"><i class="bi bi-pencil"></i></button></td>
+                  <td class="text-end"><span><button class="btn btn-primary custom-primary-button"
+                        data-bs-toggle="modal" th:attr="data-bs-target='#suppressionModal' + ${animal.id}"><i
+                          class="bi bi-x-lg"></i></button></span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Modals -->
+    <div class="modal fade" id="animalModal" tabindex="-1"aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form action="#" th:action="@{creerAnimalModel}" method="post" th:object="${nouvelAnimal}">
+            <div class="modal-header">
+              <h5 class="modal-title" id="animalModalLabel">Animal</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="col-form-label">Prenom:</label>
+                <input type="text" class="form-control" required th:field="*{prenom}">
+              </div>
+              <div class="mb-3">
+                <label class="col-form-label">Race:</label>
+                <select class="form-control" th:field="*{race.id}">
+                  <option th:each="race : ${listeRace}" th:value="${race.id}" th:text="${race.label}" ></option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="col-form-label">Habitat:</label>
+                <select class="form-control" th:field="*{habitat.id}">
+                  <option th:each="habitat : ${listeHabitat}" th:value="${habitat.id}" th:text="${habitat.nom}">Savane</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                  <label class="col-form-label">Etat:</label>
+                  <input maxlength="500" type="text" class="form-control" required th:field="*{etat}">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+              <button type="submit" class="btn btn-primary custom-primary-button">Envoyer</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade"  th:each="animal:${listeAnimal}" th:attr="id='modifierAnimalModal' + ${animal.id}" tabindex="-1"aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form action="#" th:action="@{'modifierAnimalModel/'+${animal.id}}" method="post">
+            <div class="modal-header">
+              <h5 class="modal-title">Animal</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="col-form-label">Prenom:</label>
+                <input type="text" class="form-control" required th:name="prenom" th:value="${animal.prenom}">
+              </div>
+              <div class="mb-3">
+                <label class="col-form-label">Race:</label>
+                <select class="form-control" th:name="race.id">
+                  <option th:each="race : ${listeRace}" th:value="${race.id}" th:text="${race.label}" ></option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="col-form-label">Habitat:</label>
+                <select class="form-control" th:name="habitat.id">
+                  <option th:each="habitat : ${listeHabitat}" th:value="${habitat.id}" th:text="${habitat.nom}">Savane</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="col-form-label">Etat:</label>
+                <input maxlength="500" type="text" class="form-control" required th:name="Etat" th:value="${animal.etat}">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+              <button type="submit" class="btn btn-primary custom-primary-button">Envoyer</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" th:each="animal:${listeAnimal}" th:attr="id='modifierImageAnimalModal' + ${animal.id}" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="habitatModalLabel">Images habitat</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <div class="image-slider swiper">
+                <div class="swiper-wrapper align-items-center">
+
+                  <div class="swiper-slide" th:if="${animal.images.size() >= 1}">
+                    <img th:if="${animal.images.size() >= 1}" th:src="@{'/image/' + ${animal.imagesArray[0].getId()}}" alt="Image">
+                    <div class="text-center mt-3">
+                      <form th:action="@{'supprimerImageAnimalModel/' + ${animal.imagesArray[0].getId()}}" method="get">
+                        <button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
+                          data-bs-target="#avisModal">Supprimer</button>
+                      </form>
+                    </div>
+                  </div>
+
+                  <div class="swiper-slide" th:unless="${animal.images.size() >= 1}">
+                    <div class="text-center mt-3">
+                      <form enctype="multipart/form-data" action='#' th:action="@{'creerImageAnimal/' + ${animal.id}}" method="post">
+                        <input class="form-control" type="file" th:name="file" name="file">
+                        <button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
+                                data-bs-target="#avisModal">Insérer</button>
+                      </form>
+                    </div>
+                  </div>
+
+                  <div class="swiper-slide" th:if="${animal.images.size() >= 2}">
+                    <img th:if="${animal.images.size() >= 2}" th:src="@{'/image/' + ${animal.imagesArray[1].getId()}}" alt="Image">
+                    <div class="text-center mt-3">
+                      <form th:action="@{'supprimerImageAnimalModel/' + ${animal.imagesArray[1].getId()}}" method="get">
+                        <button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
+                          data-bs-target="#avisModal">Supprimer</button>
+                      </form>
+                    </div>
+                  </div>
+
+                  <div class="swiper-slide" th:unless="${animal.images.size() >= 2}">
+                    <div class="text-center mt-3">
+                      <form enctype="multipart/form-data" action='#' th:action="@{'creerImageAnimal/' + ${animal.id}}" method="post">
+                        <input class="form-control" type="file" th:name="file" name="file">
+                        <button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
+                          data-bs-target="#avisModal">Insérer</button>
+                      </form>
+                    </div>
+                  </div>
+
+                  <div class="swiper-slide" th:if="${animal.images.size() >= 3}">
+                    <img th:if="${animal.images.size() >= 3}" th:src="@{'/image/' + ${animal.imagesArray[2].getId()}}" alt="Image" >
+                    <div class="text-center mt-3">
+                      <form th:action="@{'supprimerImageAnimalModel/' + ${animal.imagesArray[2].getId()}}" method="get">
+                        <button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
+                                data-bs-target="#avisModal">Supprimer</button>
+                      </form>
+                    </div>
+                  </div>
+
+                  <div class="swiper-slide" th:unless="${animal.images.size() >= 3}">
+                    <div class="text-center mt-3">
+                      <form enctype="multipart/form-data" action='#' th:action="@{'creerImageAnimal/' + ${animal.id}}" method="post">
+                        <input class="form-control" type="file" th:name="file" name="file">
+                        <button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
+                                data-bs-target="#avisModal">Insérer</button>
+                      </form>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="swiper-pagination"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="suppressionModal" tabindex="-1" th:each="animal:${listeAnimal}"
+         th:attr="id='suppressionModal' + ${animal.id}"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form action="#" th:action="@{'supprimerAnimalModel/'+${animal.id}}" method="get">
+            <div class="modal-header">
+              <h5 class="modal-title" id="animalModalLabel">Confirmation</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <span>Êtes vous sûr de vouloir supprimer?</span>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</button>
+              <button type="submit" class="btn btn-primary custom-primary-button">Oui</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- End Modals -->
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="mt-3">
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Arcadia</span></strong>. All Rights Reserved
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <!-- Vendor JS Files -->
+  <script th:src="@{/vendor/aos/aos.js}" src="../static/vendor/aos/aos.js"></script>
+  <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"
+    src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script th:src="@{/vendor/glightbox/js/glightbox.min.js}"
+    src="../static/vendor/glightbox/js/glightbox.min.js"></script>
+  <script th:src="@{/vendor/isotope-layout/isotope.pkgd.min.js}"
+    src="../static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script th:src="@{/vendor/swiper/swiper-bundle.min.js}" src="../static/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script th:src="@{/js/main.js}" src="../static/js/main.js"></script>
+
+</body>
+
+</html>
