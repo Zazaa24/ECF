@@ -2,14 +2,12 @@ package com.zaza.ecf.model;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
+import org.springframework.format.annotation.DateTimeFormat;
 import java.sql.Date;
 import java.sql.Time;
-import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 
 @Entity
@@ -22,12 +20,12 @@ public class RapportVeterinaire {
     private Long id;
 
     @Column(name = "date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern =  "yyyy-MM-dd")
-    private Date date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
 
     @Column(name = "time")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH-mm-ss-ns")
-    private Time time;
+    @DateTimeFormat(pattern = "HH-mm")
+    private LocalTime time;
 
     @Column(name = "detail")
     private String detail;
@@ -86,19 +84,19 @@ public class RapportVeterinaire {
         this.detail = detail;
     }
 
-    public Time getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(Time time) {
+    public void setTime(LocalTime time) {
         this.time = time;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 }
