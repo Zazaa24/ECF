@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="utf-8">
@@ -92,7 +92,7 @@
                   onkeyup="filtreGenerique('servicesFilter', 'servicesTable', 0, 1)"
                   placeholder="Rechercher par id ou nom">
               </div>
-              <div class="px-2">
+              <div sec:authorize="hasRole('ROLE_ADMINISTRATEUR')" class="px-2">
                 <button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
                   data-bs-target="#serviceModal">Ajouter un service</i>
               </div>
@@ -106,7 +106,7 @@
                     <th scope="col" width="15%">Nom</th>
                     <th scope="col" width="60%">Description</th>
                     <th scope="col" class="text-end" width="10%">Modifier</th>
-                    <th scope="col" class="text-end" width="10%">Supprimer</th>
+                    <th sec:authorize="hasRole('ROLE_ADMINISTRATEUR')" scope="col" class="text-end" width="10%">Supprimer</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -118,7 +118,7 @@
                            data-bs-toggle="modal" th:attr="data-bs-target='#modifierServiceModal'+${service.id}">
                       <i class="bi bi-pencil"></i></button>
                     </td>
-                    <td class="text-end"><span><button class="btn btn-primary custom-primary-button"
+                    <td sec:authorize="hasRole('ROLE_ADMINISTRATEUR')" class="text-end"><span><button class="btn btn-primary custom-primary-button"
                           data-bs-toggle="modal" th:attr="data-bs-target='#suppressionModal' + ${service.id}"><i
                             class="bi bi-x-lg"></i></button></span></td>
                   </tr>
@@ -131,7 +131,7 @@
     </section>
 
     <!-- Modals -->
-    <div class="modal fade" id="serviceModal" tabindex="-1"
+    <div sec:authorize="hasRole('ROLE_ADMINISTRATEUR')" class="modal fade" id="serviceModal" tabindex="-1"
       aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -188,7 +188,7 @@
       </div>
     </div>
 
-    <div class="modal fade" tabindex="-1" th:each="service:${listeService}"
+    <div sec:authorize="hasRole('ROLE_ADMINISTRATEUR')" class="modal fade" tabindex="-1" th:each="service:${listeService}"
          th:attr="id='suppressionModal' + ${service.id}" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">

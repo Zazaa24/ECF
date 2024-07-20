@@ -48,19 +48,10 @@
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <li><a class="nav-link" th:href="accueil" href="./accueil.html">Accueil</a></li>
-          <li><a class="nav-link" th:href="services" href="./services.html">Nos services</a></li>
+          <li><a class="nav-link active" th:href="services" href="./services.html">Nos services</a></li>
           <li><a class="nav-link" th:href="habitats" href="./habitats.html">Nos habitats</a></li>
           <li><a class="nav-link" th:href="contact" href="./contact.html">Contact</a></li>
-          <li class="dropdown"><a href="#"><span>Espace vétérinaire</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a class="nav-link active" th:href="ajout-rapport" href="./ajout-rapport.html">Ajout d'un rapport</a></li>
-              <li><a class="nav-link" th:href="gestion-habitats" href="./gestion-habitats.html">Gestion des habitats</a>
-              </li>
-              <li><a class="nav-link" th:href="visualisation-alimentations" href="./visualisation-alimentations.html">Visualisation des alimentations</a>
-              </li>
-            </ul>
-          </li>
-          <li><button class="btn">Se déconnecter</button></li>
+          <li><button class="btn" data-bs-toggle="modal" data-bs-target="#loginModal">Se connecter</button></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -70,54 +61,36 @@
 
   <main id="main">
 
-    <!-- ======= Ajout rapport Section ======= -->
-    <section id="rapport" class="description">
+    <!-- ======= Services Section ======= -->
+    <section class="description">
       <div class="container">
-        <form action="#" th:action="@{creerRapportModel}" method="post" th:object="${nouveauxRapport}">
-          <div class="row">
-            <h3>Rapport</h3>
-          </div>
-          <div class="row">
-            <div class="col-lg-6">
-              <label class="col-form-label">Animal:</label>
-              <select class="form-control" th:field="*{animal.id}">
-                <option th:each="animal : ${listeAnimal}" th:value="${animal.id}" th:text="${animal.prenom}"></option>
-              </select>
-            </div>
-            <div class="col-lg-6">
-              <label class="col-form-label">Detail:</label>
-              <input maxlength="500" type="text" class="form-control" th:field="*{detail}"/>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-6">
-              <label class="col-form-label">Jour:</label>
-              <input type="date" class="form-control" th:field="*{date}" />
-            </div>
-            <div class="col-lg-6">
-              <label class="col-form-label">Heure:</label>
-              <input type="time" class="form-control" th:field="*{time}" />
+
+        <div class="row">
+          <div class="d-flex flex-column justify-contents-center" data-aos="fade-left">
+            <div class="content pt-4 pt-lg-0">
+              <h3>Se connecter à Arcadia</h3>
+              <form action="#"  th:action="@{/login}" method="post"  th:object="${authentication}">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <label class="col-form-label">Adresse e-mail:</label>
+                    <input type="email" class="form-control" th:field="*{username}" required>
+                  </div>
+                  <div class="col-lg-6">
+                    <label class="col-form-label">Mot de passe:</label>
+                    <input type="password" class="form-control" th:field="*{password}" required>
+                  </div>
+                </div>
+                <div class="row mt-5">
+                  <button type="submit" class="btn btn-primary custom-primary-button">Se connecter</button>
+                </div>
+              </form>
             </div>
           </div>
-          <div class="row">
-            <div class="col-lg-6">
-              <label class="col-form-label">Nourriture:</label>
-              <input maxlength="50" type="text" class="form-control"th:field="*{alimentation.nourriturePropose}"/>
-            </div>
-            <div class="col-lg-6">
-              <label class="col-form-label">Quantité:</label>
-              <input maxlength="50" type="text" class="form-control"th:field="*{alimentation.quantite}" />
-            </div>
-          </div>
-          <div class="row mt-5">
-            <div class="col text-center">
-              <button type ="submit" class="btn btn-primary custom-primary-button">Ajouter un rapport</button>
-            </div>
-          </div>
-        </form>
+        </div>
 
       </div>
-    </section><!-- End Ajout rapport Section -->
+    </section>
+    <!-- End services Section -->
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->

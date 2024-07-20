@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.util.Optional;
 
 
 @Controller
@@ -41,6 +42,19 @@ public class GestionHabitatController {
         habitatService.modifierHabitat((habitat));
         return "redirect:../gestion-habitats";
     }
+
+    @PostMapping("/modifierCommentaireModel/{id}")
+    public String  modifierCommentaireHabitat(@PathVariable Long id,@ModelAttribute Habitat habitatModel) {
+        Optional<Habitat> optionalHabitat = habitatService.recupererHabitatParId(id);
+        if(optionalHabitat.isPresent()) {
+            Habitat habitat = optionalHabitat.get();
+            habitat.setDescription(habitatModel.getDescription());
+            habitatService.modifierHabitat((habitat));
+        }
+
+        return "redirect:../gestion-habitats";
+    }
+
 
     @GetMapping("/supprimerHabitatModel/{id}")
     public String supprimerHabitat(@PathVariable Long id) {

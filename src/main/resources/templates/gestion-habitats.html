@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="utf-8">
@@ -93,7 +93,7 @@
                 onkeyup="filtreGenerique('habitatsFilter', 'habitatsTable', 0, 1)"
                 placeholder="Rechercher par id ou nom">
             </div>
-            <div class="px-2">
+            <div sec:authorize="hasRole('ROLE_ADMINISTRATEUR')" class="px-2">
               <button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
                 data-bs-target="#habitatModal">Ajouter un habitat</i>
             </div>
@@ -107,9 +107,9 @@
                   <th scope="col" width="15%">Nom</th>
                   <th scope="col" width="25%">Description</th>
                   <th scope="col" width="25%">Commentaire</th>
-                  <th scope="col" width="10%">Images</th>
+                  <th sec:authorize="hasRole('ROLE_ADMINISTRATEUR')" scope="col" width="10%">Images</th>
                   <th scope="col" class="text-end" width="10%">Modifier</th>
-                  <th scope="col" class="text-end" width="10%">Supprimer</th>
+                  <th sec:authorize="hasRole('ROLE_ADMINISTRATEUR')" scope="col" class="text-end" width="10%">Supprimer</th>
                 </tr>
               </thead>
               <tbody>
@@ -118,11 +118,11 @@
                   <td th:text="${habitat.nom}"><span></span></td>
                   <td th:text="${habitat.description}"><span></span></td>
                   <td th:text="${habitat.commentaireHabitat}"><span></span></td>
-                  <td><span>0&nbsp;<button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
+                  <td sec:authorize="hasRole('ROLE_ADMINISTRATEUR')"><span>0&nbsp;<button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
                        th:attr="data-bs-target='#modifierImageHabitatModal'+${habitat.id}"><i class="bi bi-pencil"></i></button></span></td>
                   <td class="text-end"><button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
                        th:attr="data-bs-target='#modifierHabitatModal'+${habitat.id}"><i class="bi bi-pencil"></i></button></td>
-                  <td class="text-end"><span><button class="btn btn-primary custom-primary-button"
+                  <td sec:authorize="hasRole('ROLE_ADMINISTRATEUR')" class="text-end"><span><button class="btn btn-primary custom-primary-button"
                         data-bs-toggle="modal"  th:attr="data-bs-target='#suppressionModal' + ${habitat.id}"><i
                           class="bi bi-x-lg"></i></button></span></td>
                 </tr>
@@ -135,7 +135,7 @@
     </section>
 
     <!-- Modals -->
-    <div class="modal fade" id="habitatModal" tabindex="-1" aria-hidden="true">
+    <div sec:authorize="hasRole('ROLE_ADMINISTRATEUR')" class="modal fade" id="habitatModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <form action="#" th:action="@{creerHabitatModel}" method="post" th:object="${nouvelHabitat}">
@@ -170,7 +170,8 @@
          th:attr="id='modifierHabitatModal' + ${habitat.id}" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
-          <form action="#" th:action="@{'modifierHabitatModel/'+${habitat.id}}" method="post">
+          <form th:if="${#authorization.expression('hasRole(''ADMINISTRATEUR'')')}" action="#" th:action="@{'modifierHabitatModel/'+${habitat.id}}" method="post">
+            <form th:if="${#authorization.expression('hasRole(''VETERINAIRE'')')}" action="#" th:action="@{'modifierCommentaireModel/'+${habitat.id}}" method="post">
             <div class="modal-header">
               <h5 class="modal-title">Habitat</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -178,11 +179,13 @@
             <div class="modal-body">
               <div class="mb-3">
                 <label class="col-form-label">Nom:</label>
-                <input maxlength="50" type="text" class="form-control" required th:name="nom" th:value="${habitat.nom}">
+                <input  th:if="${#authorization.expression('hasRole(''ADMINISTRATEUR'')')}"maxlength="50" type="text" class="form-control" required th:name="nom" th:value="${habitat.nom}">
+                <input th:if="${#authorization.expression('hasRole(''VETERINAIRE'')')}" maxlength="50" type="text" class="form-control" required th:name="nom" th:value="${habitat.nom}">
               </div>
               <div class="mb-3">
                 <label class="col-form-label">Description:</label>
-                <textarea maxlength="500" class="form-control" required th:name="description" th:text="${habitat.description}"></textarea>
+                <textarea  th:if="${#authorization.expression('hasRole(''ADMINISTRATEUR'')')}" maxlength="500" class="form-control" required th:name="description" th:text="${habitat.description}"></textarea>
+                <textarea th:if="${#authorization.expression('hasRole(''VETERINAIRE'')')}" maxlength="500" class="form-control" required th:name="description" th:text="${habitat.description}"></textarea>
               </div>
               <div class="mb-3">
                 <label class="col-form-label">Commentaire:</label>
@@ -198,7 +201,7 @@
       </div>
     </div>
 
-    <div class="modal fade" th:each="habitat:${listeHabitat}" th:attr="id='modifierImageHabitatModal' + ${habitat.id}" tabindex="-1" aria-hidden="true">
+    <div sec:authorize="hasRole('ROLE_ADMINISTRATEUR')" class="modal fade" th:each="habitat:${listeHabitat}" th:attr="id='modifierImageHabitatModal' + ${habitat.id}" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -225,7 +228,7 @@
                       <form enctype="multipart/form-data" action='#' th:action="@{'creerImageHabitat/' + ${habitat.id}}" method="post">
                         <input class="form-control" type="file" th:name="file" name="file">
                         <button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
-                                data-bs-target="#avisModal">Insérer</button>
+                                >Insérer</button>
                       </form>
                     </div>
                   </div>
@@ -235,7 +238,7 @@
                     <div class="text-center mt-3">
                       <form th:action="@{'supprimerImageHabitatModel/' + ${habitat.imagesArray[1].getId()}}" method="get">
                         <button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
-                                data-bs-target="#avisModal">Supprimer</button>
+                                >Supprimer</button>
                       </form>
                     </div>
                   </div>
@@ -245,7 +248,7 @@
                       <form enctype="multipart/form-data" action='#' th:action="@{'creerImageHabitat/' + ${habitat.id}}" method="post">
                         <input class="form-control" type="file" th:name="file" name="file">
                         <button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
-                                data-bs-target="#avisModal">Insérer</button>
+                               >Insérer</button>
                       </form>
                     </div>
                   </div>
@@ -255,7 +258,7 @@
                     <div class="text-center mt-3">
                       <form th:action="@{'supprimerImageHabitatModel/' + ${habitat.imagesArray[2].getId()}}" method="get">
                         <button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
-                                data-bs-target="#avisModal">Supprimer</button>
+                               >Supprimer</button>
                       </form>
                     </div>
                   </div>
@@ -265,7 +268,7 @@
                       <form enctype="multipart/form-data" action='#' th:action="@{'creerImageHabitat/' + ${habitat.id}}" method="post">
                         <input class="form-control" type="file" th:name="file" name="file">
                         <button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
-                                data-bs-target="#avisModal">Insérer</button>
+                               >Insérer</button>
                       </form>
                     </div>
                   </div>
