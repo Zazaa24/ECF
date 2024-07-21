@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="utf-8">
@@ -51,7 +51,49 @@
           <li><a class="nav-link" th:href="services" href="./services.html">Nos services</a></li>
           <li><a class="nav-link active" th:href="habitats" href="./habitats.html">Nos habitats</a></li>
           <li><a class="nav-link" th:href="contact" href="./contact.html">Contact</a></li>
-          <li><button class="btn" data-bs-toggle="modal" data-bs-target="#loginModal">Se connecter</button></li>
+          <li sec:authorize="!isAuthenticated()">
+            <a class="nav-link" th:href="login" href="./login.html" >Se connecter</a>
+          </li>
+          <li sec:authorize="hasRole('ROLE_ADMINISTRATEUR')" class="dropdown"><a href="#"><span>Espace administrateur</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a class="nav-link" th:href="gestion-utilisateurs" href="./gestion-utilisateurs.html">Gestion
+                des utilisateurs</a></li>
+              <li><a class="nav-link" th:href="gestion-services" href="./gestion-services.html">Gestion des services</a>
+              </li>
+              <li><a class="nav-link" th:href="gestion-habitats" href="./gestion-habitats.html">Gestion des habitats</a>
+              </li>
+              <li><a class="nav-link" th:href="gestion-animaux" href="./gestion-animaux.html">Gestion des animaux</a>
+              </li>
+              <li><a class="nav-link" th:href="gestion-races" href="./gestion-races.html">Gestion des races</a>
+              </li>
+              <li><a class="nav-link" th:href="gestion-horaires" href="./gestion-horaires.html">Gestion des horaires</a>
+              </li>
+              <li><a class="nav-link" th:href="visualisation-rapports"
+                     href="./visualisation-rapports.html">Visualisation des rapports</a></li>
+            </ul>
+          </li>
+          <li sec:authorize="hasRole('ROLE_EMPLOYE')" class="dropdown"><a href="#"><span>Espace employé</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a class="nav-link" th:href="gestion-avis" href="./gestion-avis.html">Gestion
+                des avis</a></li>
+              <li><a class="nav-link" th:href="gestion-services" href="./gestion-services.html">Gestion des
+                services</a>
+              </li>
+              <li><a class="nav-link" th:href="ajout-alimentation" href="./ajout-alimentation.html">Ajout de
+                l'alimentation</a>
+              </li>
+            </ul>
+          </li>
+          <li sec:authorize="hasRole('ROLE_VETERINAIRE')" class="dropdown"><a href="#"><span>Espace vétérinaire</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a class="nav-link" th:href="ajout-rapport" href="./ajout-rapport.html">Ajout d'un rapport</a></li>
+              <li><a class="nav-link" th:href="gestion-habitats" href="./gestion-habitats.html">Gestion des habitats</a>
+              </li>
+              <li><a class="nav-link" th:href="visualisation-alimentations" href="./visualisation-alimentations.html">Visualisation des alimentations</a>
+              </li>
+            </ul>
+          </li>
+          <li sec:authorize="isAuthenticated()"><form th:action="@{logout}" method="post"> <button class="btn">Se déconnecter</button></form></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -62,24 +104,16 @@
   <main id="main">
 
     <!-- ======= Habitats Sections ======= -->
-    <section class="details">
+    <section class="details" th:each="habitat:${listeHabitat}">
       <div class="container">
         <div class="row gy-4">
 
           <div class="col-lg-8">
-            <div class="image-slider swiper">
+            <div class="image-slider swiper" >
               <div class="swiper-wrapper align-items-center">
 
-                <div class="swiper-slide">
-                  <img src="../static/img/Horaires.jpg" alt="">
-                </div>
-
-                <div class="swiper-slide">
-                  <img src="../static/img/Horaires.jpg" alt="">
-                </div>
-
-                <div class="swiper-slide">
-                  <img src="../static/img/Horaires.jpg" alt="">
+                <div class="swiper-slide" th:each="habitatImage :${habitat.images}">
+                  <img th:src="@{'/image/' + ${habitatImage.id}}" alt="Image">
                 </div>
 
               </div>
@@ -87,22 +121,17 @@
             </div>
           </div>
 
-          <div class="col-lg-4">
+          <div class="col-lg-4" >
             <div class="info">
-              <h3 id="titreHabitat1" style="border-bottom: 1px solid var(--black-80);"><a href="#titreHabitat1"
-                  onclick="showHideHabitat('titreHabitat1', 'descriptionHabitat1', 'tableHabitat1');">Habitat 1</a></h3>
-              <p id="descriptionHabitat1" style="display: none">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat.
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              </p>
+              <h3 th:attr="id='titreHabitat'+${habitat.id}" style="border-bottom: 1px solid var(--black-80);"><a
+                  th:attr="href='#titreHabitat' + ${habitat.id}" th:onclick="'showHideHabitat(\'titreHabitat' + ${habitat.id} + '\', \'descriptionHabitat' + ${habitat.id} + '\', \'tableHabitat' + ${habitat.id} + '\');'"
+                  th:text="${habitat.nom}">Habitat 1</a></h3>
+              <p th:attr="id='descriptionHabitat'+${habitat.id}" style="display: none" th:text="${habitat.description}"></p>
             </div>
           </div>
 
         </div>
-        <div class="row" id="tableHabitat1" style="display: none">
+        <div class="row" th:attr="id='tableHabitat'+${habitat.id}" style="display: none">
           <div class="table-responsive">
             <table class="table table-responsive">
 
@@ -114,17 +143,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td><span>Pikachu</span></td>
-                  <td><span>Chien</span></td>
+                <tr th:each="animal:${habitat.animals}">
+                  <td th:text="${animal.prenom}"><span>Pikachu</span></td>
+                  <td th:text="${animal.race.label}"><span>Chien</span></td>
                   <td><span><button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
-                        data-bs-target="#animalModal"><i class="bi bi-eye"></i></button></span></td>
-                </tr>
-                <tr>
-                  <td><span>Rondoudou</span></td>
-                  <td><span>Chat</span></td>
-                  <td><span><button class="btn btn-primary custom-primary-button" data-toggle="modal"
-                        data-bs-target="#animalModal"><i class="bi bi-eye"></i></button></span></td>
+                  th:attr="data-bs-target='#animalModal' + ${animal.id}"><i class="bi bi-eye"></i></button></span></td>
                 </tr>
               </tbody>
             </table>
@@ -133,80 +156,10 @@
       </div>
     </section>
 
-    <section class="details">
-      <div class="container">
-        <div class="row gy-4">
-
-          <div class="col-lg-8">
-            <div class="image-slider swiper">
-              <div class="swiper-wrapper align-items-center">
-
-                <div class="swiper-slide">
-                  <img src="../static/img/Horaires.jpg" alt="">
-                </div>
-
-                <div class="swiper-slide">
-                  <img src="../static/img/Horaires.jpg" alt="">
-                </div>
-
-                <div class="swiper-slide">
-                  <img src="../static/img/Horaires.jpg" alt="">
-                </div>
-
-              </div>
-              <div class="swiper-pagination"></div>
-            </div>
-          </div>
-
-          <div class="col-lg-4">
-            <div class="info">
-              <h3 id="titreHabitat2" style="border-bottom: 1px solid var(--black-80);"><a href="#titreHabitat2"
-                  onclick="showHideHabitat('titreHabitat2', 'descriptionHabitat2', 'tableHabitat2');">Habitat 2</a></h3>
-              <p id="descriptionHabitat2" style="display: none">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat.
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              </p>
-            </div>
-          </div>
-
-        </div>
-        <div class="row" id="tableHabitat2" style="display: none">
-          <div class="table-responsive">
-            <table class="table table-responsive">
-
-              <thead>
-                <tr class="bg-light">
-                  <th scope="col" width="33.3%">Nom</th>
-                  <th scope="col" width="33.3%">Race</th>
-                  <th scope="col" width="33.3%">Détails</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><span>Pikachu</span></td>
-                  <td><span>Chien</span></td>
-                  <td><span><button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
-                        data-bs-target="#animalModal"><i class="bi bi-eye"></i></button></span></td>
-                </tr>
-                <tr>
-                  <td><span>Rondoudou</span></td>
-                  <td><span>Chat</span></td>
-                  <td><span><button class="btn btn-primary custom-primary-button" data-toggle="modal"
-                        data-bs-target="#animalModal"><i class="bi bi-eye"></i></button></span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </section>
     <!-- End habitats Sections -->
 
 
-    <div class="modal fade" id="animalModal" tabindex="-1">
+    <div class="modal fade" tabindex="-1" th:each="animal:${listeAnimal}"  th:attr="id='animalModal' + ${animal.id}">
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
@@ -222,16 +175,8 @@
                     <div class="image-slider swiper">
                       <div class="swiper-wrapper align-items-center">
 
-                        <div class="swiper-slide">
-                          <img src="../static/img/Horaires.jpg" alt="">
-                        </div>
-
-                        <div class="swiper-slide">
-                          <img src="../static/img/Horaires.jpg" alt="">
-                        </div>
-
-                        <div class="swiper-slide">
-                          <img src="../static/img/Horaires.jpg" alt="">
+                        <div class="swiper-slide" th:each="animalImage :${animal.images}">
+                          <img th:src="@{'/image/' + ${animalImage.id}}" alt="Image">
                         </div>
 
                       </div>
@@ -241,11 +186,10 @@
 
                   <div class="col-lg-4">
                     <div class="info">
-                      <h3 class="border-custom">Habitat 1</a></h3>
+                      <h3 class="border-custom"  th:text="${animal.prenom}"></h3>
                       <ul>
-                        <li><strong>Prenom</strong>: Rondoudou</li>
-                        <li><strong>Race</strong>: Chat</li>
-                        <li><strong>Etat</strong>: Malade</li>
+                        <li th:text="${animal.race.label}"><strong>Race</strong>: Chat</li>
+                        <li th:text="${animal.etat}"><strong>Etat</strong>: Malade</li>
                       </ul>
                     </div>
                   </div>

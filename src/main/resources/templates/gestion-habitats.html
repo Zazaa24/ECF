@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="utf-8">
@@ -51,27 +51,49 @@
           <li><a class="nav-link" th:href="services" href="./services.html">Nos services</a></li>
           <li><a class="nav-link" th:href="habitats" href="./habitats.html">Nos habitats</a></li>
           <li><a class="nav-link" th:href="contact" href="./contact.html">Contact</a></li>
-          <li class="dropdown"><a href="#"><span>Espace administrateur</span> <i class="bi bi-chevron-down"></i></a>
+          <li sec:authorize="!isAuthenticated()">
+            <a class="nav-link" th:href="login" href="./login.html" >Se connecter</a>
+          </li>
+          <li sec:authorize="hasRole('ROLE_ADMINISTRATEUR')" class="dropdown"><a href="#"><span>Espace administrateur</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a class="nav-link" th:href="gestion-utilisateurs" href="./gestion-utilisateurs.html">Gestion
-                  des utilisateurs</a></li>
+                des utilisateurs</a></li>
               <li><a class="nav-link" th:href="gestion-services" href="./gestion-services.html">Gestion des services</a>
               </li>
-              <li><a class="nav-link active" th:href="gestion-habitats" href="./gestion-habitats.html">Gestion des
-                  habitats</a>
-              </li>
-              <li><a class="nav-link" th:href="gestion-races" href="./gestion-races.html">Gestion des races</a>
+              <li><a class="nav-link active" th:href="gestion-habitats" href="./gestion-habitats.html">Gestion des habitats</a>
               </li>
               <li><a class="nav-link" th:href="gestion-animaux" href="./gestion-animaux.html">Gestion des animaux</a>
+              </li>
+              <li><a class="nav-link" th:href="gestion-races" href="./gestion-races.html">Gestion des races</a>
               </li>
               <li><a class="nav-link" th:href="gestion-horaires" href="./gestion-horaires.html">Gestion des horaires</a>
               </li>
               <li><a class="nav-link" th:href="visualisation-rapports"
-                  href="./visualisation-rapports.html">Visualisation des rapports</a></li>
-              <li><a class="nav-link" th:href="vues-animaux" href="./vues-animaux.html">Vues animaux</a></li>
+                     href="./visualisation-rapports.html">Visualisation des rapports</a></li>
             </ul>
           </li>
-          <li><button class="btn">Se déconnecter</button></li>
+          <li sec:authorize="hasRole('ROLE_EMPLOYE')" class="dropdown"><a href="#"><span>Espace employé</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a class="nav-link" th:href="gestion-avis" href="./gestion-avis.html">Gestion
+                des avis</a></li>
+              <li><a class="nav-link" th:href="gestion-services" href="./gestion-services.html">Gestion des
+                services</a>
+              </li>
+              <li><a class="nav-link" th:href="ajout-alimentation" href="./ajout-alimentation.html">Ajout de
+                l'alimentation</a>
+              </li>
+            </ul>
+          </li>
+          <li sec:authorize="hasRole('ROLE_VETERINAIRE')" class="dropdown"><a href="#"><span>Espace vétérinaire</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a class="nav-link" th:href="ajout-rapport" href="./ajout-rapport.html">Ajout d'un rapport</a></li>
+              <li><a class="nav-link active" th:href="gestion-habitats" href="./gestion-habitats.html">Gestion des habitats</a>
+              </li>
+              <li><a class="nav-link" th:href="visualisation-alimentations" href="./visualisation-alimentations.html">Visualisation des alimentations</a>
+              </li>
+            </ul>
+          </li>
+          <li sec:authorize="isAuthenticated()"><form th:action="@{logout}" method="post"> <button class="btn">Se déconnecter</button></form></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -93,9 +115,9 @@
                 onkeyup="filtreGenerique('habitatsFilter', 'habitatsTable', 0, 1)"
                 placeholder="Rechercher par id ou nom">
             </div>
-            <div class="px-2">
+            <div sec:authorize="hasRole('ROLE_ADMINISTRATEUR')" class="px-2">
               <button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
-                data-bs-target="#habitatModal">Ajouter un habitat</i>
+                      data-bs-target="#habitatModal">Ajouter un habitat</button>
             </div>
           </div>
           <div class="table-responsive">
@@ -107,9 +129,9 @@
                   <th scope="col" width="15%">Nom</th>
                   <th scope="col" width="25%">Description</th>
                   <th scope="col" width="25%">Commentaire</th>
-                  <th scope="col" width="10%">Images</th>
+                  <th sec:authorize="hasRole('ROLE_ADMINISTRATEUR')" scope="col" width="10%">Images</th>
                   <th scope="col" class="text-end" width="10%">Modifier</th>
-                  <th scope="col" class="text-end" width="10%">Supprimer</th>
+                  <th sec:authorize="hasRole('ROLE_ADMINISTRATEUR')" scope="col" class="text-end" width="10%">Supprimer</th>
                 </tr>
               </thead>
               <tbody>
@@ -118,11 +140,11 @@
                   <td th:text="${habitat.nom}"><span></span></td>
                   <td th:text="${habitat.description}"><span></span></td>
                   <td th:text="${habitat.commentaireHabitat}"><span></span></td>
-                  <td><span>0&nbsp;<button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
+                  <td sec:authorize="hasRole('ROLE_ADMINISTRATEUR')"><span>0&nbsp;<button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
                        th:attr="data-bs-target='#modifierImageHabitatModal'+${habitat.id}"><i class="bi bi-pencil"></i></button></span></td>
                   <td class="text-end"><button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
                        th:attr="data-bs-target='#modifierHabitatModal'+${habitat.id}"><i class="bi bi-pencil"></i></button></td>
-                  <td class="text-end"><span><button class="btn btn-primary custom-primary-button"
+                  <td sec:authorize="hasRole('ROLE_ADMINISTRATEUR')" class="text-end"><span><button class="btn btn-primary custom-primary-button"
                         data-bs-toggle="modal"  th:attr="data-bs-target='#suppressionModal' + ${habitat.id}"><i
                           class="bi bi-x-lg"></i></button></span></td>
                 </tr>
@@ -135,7 +157,7 @@
     </section>
 
     <!-- Modals -->
-    <div class="modal fade" id="habitatModal" tabindex="-1" aria-hidden="true">
+    <div sec:authorize="hasRole('ROLE_ADMINISTRATEUR')" class="modal fade" id="habitatModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <form action="#" th:action="@{creerHabitatModel}" method="post" th:object="${nouvelHabitat}">
@@ -169,8 +191,8 @@
     <div class="modal fade" th:each="habitat:${listeHabitat}"
          th:attr="id='modifierHabitatModal' + ${habitat.id}" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog">
-        <div class="modal-content">
-          <form action="#" th:action="@{'modifierHabitatModel/'+${habitat.id}}" method="post">
+        <div class="modal-content" sec:authorize="hasRole('ROLE_ADMINISTRATEUR')">
+          <form  action="#" th:action="@{'modifierHabitatModel/'+${habitat.id}}" method="post" >
             <div class="modal-header">
               <h5 class="modal-title">Habitat</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -183,6 +205,7 @@
               <div class="mb-3">
                 <label class="col-form-label">Description:</label>
                 <textarea maxlength="500" class="form-control" required th:name="description" th:text="${habitat.description}"></textarea>
+
               </div>
               <div class="mb-3">
                 <label class="col-form-label">Commentaire:</label>
@@ -195,10 +218,36 @@
             </div>
           </form>
         </div>
+        <div class="modal-content" sec:authorize="hasRole('ROLE_VETERINAIRE')" >
+            <form sec:authorize="hasRole('ROLE_VETERINAIRE')" action="#" th:action="@{'modifierCommentaireModel/'+${habitat.id}}" method="post">
+              <div class="modal-header">
+                <h5 class="modal-title">Habitat</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label class="col-form-label">Nom:</label>
+                  <input maxlength="50" type="text" class="form-control" required th:name="nom" th:value="${habitat.nom}" disabled>
+                </div>
+                <div class="mb-3">
+                  <label class="col-form-label">Description:</label>
+                  <textarea maxlength="500" class="form-control" required th:name="description" th:text="${habitat.description}" disabled></textarea>
+                </div>
+                <div class="mb-3">
+                  <label class="col-form-label">Commentaire:</label>
+                  <textarea maxlength="500" class="form-control" required th:name="commentaireHabitat" th:text="${habitat.commentaireHabitat}"></textarea>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-primary custom-primary-button">Envoyer</button>
+              </div>
+            </form>
+        </div>
       </div>
     </div>
 
-    <div class="modal fade" th:each="habitat:${listeHabitat}" th:attr="id='modifierImageHabitatModal' + ${habitat.id}" tabindex="-1" aria-hidden="true">
+    <div sec:authorize="hasRole('ROLE_ADMINISTRATEUR')" class="modal fade" th:each="habitat:${listeHabitat}" th:attr="id='modifierImageHabitatModal' + ${habitat.id}" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -225,7 +274,7 @@
                       <form enctype="multipart/form-data" action='#' th:action="@{'creerImageHabitat/' + ${habitat.id}}" method="post">
                         <input class="form-control" type="file" th:name="file" name="file">
                         <button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
-                                data-bs-target="#avisModal">Insérer</button>
+                                >Insérer</button>
                       </form>
                     </div>
                   </div>
@@ -235,7 +284,7 @@
                     <div class="text-center mt-3">
                       <form th:action="@{'supprimerImageHabitatModel/' + ${habitat.imagesArray[1].getId()}}" method="get">
                         <button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
-                                data-bs-target="#avisModal">Supprimer</button>
+                                >Supprimer</button>
                       </form>
                     </div>
                   </div>
@@ -245,7 +294,7 @@
                       <form enctype="multipart/form-data" action='#' th:action="@{'creerImageHabitat/' + ${habitat.id}}" method="post">
                         <input class="form-control" type="file" th:name="file" name="file">
                         <button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
-                                data-bs-target="#avisModal">Insérer</button>
+                               >Insérer</button>
                       </form>
                     </div>
                   </div>
@@ -255,7 +304,7 @@
                     <div class="text-center mt-3">
                       <form th:action="@{'supprimerImageHabitatModel/' + ${habitat.imagesArray[2].getId()}}" method="get">
                         <button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
-                                data-bs-target="#avisModal">Supprimer</button>
+                               >Supprimer</button>
                       </form>
                     </div>
                   </div>
@@ -265,7 +314,7 @@
                       <form enctype="multipart/form-data" action='#' th:action="@{'creerImageHabitat/' + ${habitat.id}}" method="post">
                         <input class="form-control" type="file" th:name="file" name="file">
                         <button class="btn btn-primary custom-primary-button" data-bs-toggle="modal"
-                                data-bs-target="#avisModal">Insérer</button>
+                               >Insérer</button>
                       </form>
                     </div>
                   </div>

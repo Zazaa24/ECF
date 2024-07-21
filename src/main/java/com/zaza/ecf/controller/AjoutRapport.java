@@ -9,6 +9,7 @@ import com.zaza.ecf.service.AlimentationService;
 import com.zaza.ecf.service.AnimalService;
 import com.zaza.ecf.service.RapportVeterinaireService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ public class AjoutRapport {
     public AlimentationService alimentationService;
 
     @GetMapping("/ajout-rapport")
+    @PreAuthorize("hasAuthority('ROLE_VETERINAIRE')")
     public String ajoutRapport(Model model) {
         RapportVeterinaire nouveauxRapport =new RapportVeterinaire();
         Alimentation nouvelAlimentation = new Alimentation();
@@ -36,6 +38,7 @@ public class AjoutRapport {
     }
 
     @PostMapping("/creerRapportModel")
+    @PreAuthorize("hasAuthority('ROLE_VETERINAIRE')")
     public String creerNouveauxRapport(@ModelAttribute("nouveauxRapport") RapportVeterinaire rapportVeterinaire) {
         Utilisateur defaultUtilisateur = new Utilisateur();
         defaultUtilisateur.setId(1L);

@@ -7,6 +7,7 @@ import com.zaza.ecf.service.MailService;
 import com.zaza.ecf.service.UtilisateurService;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ public class GestionUtilisateurController {
     public MailService mailService;
 
     @GetMapping("/gestion-utilisateurs")
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRATEUR')")
     public String gestionUtilisateur(Model model) {
         model.addAttribute("listeUtilisateur",utilisateurService.recupererListeUtilisateur());
         Utilisateur nouvelUtilisateur = new Utilisateur();
@@ -32,6 +34,7 @@ public class GestionUtilisateurController {
     }
 
     @PostMapping("/creerUtilisateurModel")
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRATEUR')")
     public String creerUtilisateur(@ModelAttribute("nouvelUtilisateur")Utilisateur utilisateur) throws MessagingException {
         utilisateurService.creerUtilisateur(utilisateur);
         mailService.sendEmailInvitation(utilisateur.getUsername());
@@ -39,12 +42,14 @@ public class GestionUtilisateurController {
     }
 
     @PostMapping("/modifierUtilisateurModel/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRATEUR')")
     public String  modifierUtilisateur(@PathVariable Long id, @ModelAttribute Utilisateur utilisateur) {
         utilisateurService.modifierUtilisateur((utilisateur));
         return "redirect:../gestion-utilisateurs";
     }
 
     @GetMapping("/supprimerUtilisateurModel/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRATEUR')")
     public String supprimerUtilisateur(@PathVariable Long id) {
         utilisateurService.supprimerUtilisateur(id);
         return "redirect:../gestion-utilisateurs";

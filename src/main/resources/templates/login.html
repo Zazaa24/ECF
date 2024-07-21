@@ -52,7 +52,7 @@
           <li><a class="nav-link" th:href="habitats" href="./habitats.html">Nos habitats</a></li>
           <li><a class="nav-link" th:href="contact" href="./contact.html">Contact</a></li>
           <li sec:authorize="!isAuthenticated()">
-            <a class="nav-link" th:href="login" href="./login.html" >Se connecter</a>
+            <a class="nav-link active" th:href="login" href="./login.html" >Se connecter</a>
           </li>
           <li sec:authorize="hasRole('ROLE_ADMINISTRATEUR')" class="dropdown"><a href="#"><span>Espace administrateur</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
@@ -89,7 +89,7 @@
               <li><a class="nav-link" th:href="ajout-rapport" href="./ajout-rapport.html">Ajout d'un rapport</a></li>
               <li><a class="nav-link" th:href="gestion-habitats" href="./gestion-habitats.html">Gestion des habitats</a>
               </li>
-              <li><a class="nav-link active" th:href="visualisation-alimentations" href="./visualisation-alimentations.html">Visualisation des alimentations</a>
+              <li><a class="nav-link" th:href="visualisation-alimentations" href="./visualisation-alimentations.html">Visualisation des alimentations</a>
               </li>
             </ul>
           </li>
@@ -103,48 +103,36 @@
 
   <main id="main">
 
-    <!-- ======= Alimentations Section ======= -->
+    <!-- ======= Services Section ======= -->
     <section class="description">
-      <div class="align-items-center mt-5">
-          <div class="container mt-5 px-2">
-            <h3>Visualitation de l'alimentation</h3>
-            <div class="mb-2 d-flex justify-content-between align-items-center">
-              <div class="position-relative">
-                <span class="position-absolute search"><i class="fa fa-search"></i></span>
-                <input id="alimentationsFilter" class="form-control w-100"
-                  onkeyup="filtreGenerique('alimentationsFilter', 'alimentationsTable', 0, 1)"
-                  placeholder="Rechercher par id ou animal">
-              </div>
-            </div>
-            <div class="table-responsive">
-              <table class="table table-responsive" id="alimentationsTable">
+      <div class="container">
 
-                <thead>
-                  <tr class="bg-light">
-                    <th scope="col" width="5%">#</th>
-                    <th scope="col" width="20%">Animal</th>
-                    <th scope="col" width="20%">Date</th>
-                    <th scope="col" width="15%">Heure</th>
-                    <th scope="col" width="20%">Nourriture</th>
-                    <th scope="col" width="15%">Quantité</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr th:each="alimentation:${listeAlimentation}">
-                    <td><span th:text="${alimentation.id}"></span></td>
-                    <td><span th:text="${alimentation.animal.prenom}"></span></td>
-                    <td><span th:text="${alimentation.date}"></span></td>
-                    <td><span th:text="${alimentation.time}"></span></td>
-                    <td><span th:text="${alimentation.nourriturePropose}"></span></td>
-                    <td><span th:text="${alimentation.quantite}"></span></td>
-                  </tr>
-                </tbody>
-              </table>
+        <div class="row">
+          <div class="d-flex flex-column justify-contents-center" data-aos="fade-left">
+            <div class="content pt-4 pt-lg-0">
+              <h3>Se connecter à Arcadia</h3>
+              <form action="#"  th:action="@{/login}" method="post"  th:object="${authentication}">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <label class="col-form-label">Adresse e-mail:</label>
+                    <input type="email" class="form-control" th:field="*{username}" required>
+                  </div>
+                  <div class="col-lg-6">
+                    <label class="col-form-label">Mot de passe:</label>
+                    <input type="password" class="form-control" th:field="*{password}" required>
+                  </div>
+                </div>
+                <div class="row mt-5">
+                  <button type="submit" class="btn btn-primary custom-primary-button">Se connecter</button>
+                </div>
+              </form>
             </div>
           </div>
+        </div>
 
       </div>
     </section>
+    <!-- End services Section -->
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->

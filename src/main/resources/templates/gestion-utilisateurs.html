@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="utf-8">
@@ -51,26 +51,49 @@
           <li><a class="nav-link" th:href="services" href="./services.html">Nos services</a></li>
           <li><a class="nav-link" th:href="habitats" href="./habitats.html">Nos habitats</a></li>
           <li><a class="nav-link" th:href="contact" href="./contact.html">Contact</a></li>
-          <li class="dropdown"><a href="#"><span>Espace administrateur</span> <i class="bi bi-chevron-down"></i></a>
+          <li sec:authorize="!isAuthenticated()">
+            <a class="nav-link" th:href="login" href="./login.html" >Se connecter</a>
+          </li>
+          <li sec:authorize="hasRole('ROLE_ADMINISTRATEUR')" class="dropdown"><a href="#"><span>Espace administrateur</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a class="nav-link active" th:href="gestion-utilisateurs" href="./gestion-utilisateurs.html">Gestion
-                  des utilisateurs</a></li>
+                des utilisateurs</a></li>
               <li><a class="nav-link" th:href="gestion-services" href="./gestion-services.html">Gestion des services</a>
               </li>
               <li><a class="nav-link" th:href="gestion-habitats" href="./gestion-habitats.html">Gestion des habitats</a>
               </li>
-              <li><a class="nav-link" th:href="gestion-races" href="./gestion-races.html">Gestion des races</a>
-              </li>
               <li><a class="nav-link" th:href="gestion-animaux" href="./gestion-animaux.html">Gestion des animaux</a>
+              </li>
+              <li><a class="nav-link" th:href="gestion-races" href="./gestion-races.html">Gestion des races</a>
               </li>
               <li><a class="nav-link" th:href="gestion-horaires" href="./gestion-horaires.html">Gestion des horaires</a>
               </li>
               <li><a class="nav-link" th:href="visualisation-rapports"
-                  href="./visualisation-rapports.html">Visualisation des rapports</a></li>
-              <li><a class="nav-link" th:href="vues-animaux" href="./vues-animaux.html">Vues animaux</a></li>
+                     href="./visualisation-rapports.html">Visualisation des rapports</a></li>
             </ul>
           </li>
-          <li><button class="btn">Se déconnecter</button></li>
+          <li sec:authorize="hasRole('ROLE_EMPLOYE')" class="dropdown"><a href="#"><span>Espace employé</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a class="nav-link" th:href="gestion-avis" href="./gestion-avis.html">Gestion
+                des avis</a></li>
+              <li><a class="nav-link" th:href="gestion-services" href="./gestion-services.html">Gestion des
+                services</a>
+              </li>
+              <li><a class="nav-link" th:href="ajout-alimentation" href="./ajout-alimentation.html">Ajout de
+                l'alimentation</a>
+              </li>
+            </ul>
+          </li>
+          <li sec:authorize="hasRole('ROLE_VETERINAIRE')" class="dropdown"><a href="#"><span>Espace vétérinaire</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a class="nav-link" th:href="ajout-rapport" href="./ajout-rapport.html">Ajout d'un rapport</a></li>
+              <li><a class="nav-link" th:href="gestion-habitats" href="./gestion-habitats.html">Gestion des habitats</a>
+              </li>
+              <li><a class="nav-link" th:href="visualisation-alimentations" href="./visualisation-alimentations.html">Visualisation des alimentations</a>
+              </li>
+            </ul>
+          </li>
+          <li sec:authorize="isAuthenticated()"><form th:action="@{logout}" method="post"> <button class="btn">Se déconnecter</button></form></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
