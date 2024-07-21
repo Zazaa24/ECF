@@ -14,7 +14,7 @@
 	<name>ECF</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>22</java.version>
+		<java.version>21</java.version>
 		<springVersion>3.3.0</springVersion>
 		<postGreVersion>42.7.3</postGreVersion>
 	</properties>
