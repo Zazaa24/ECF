@@ -25,7 +25,7 @@ public class ContactController {
    }
 
    @PostMapping("/demandeContact")
-    public String demandeContact(@ModelAttribute("demandeContact") Contact demandeContact) throws MessagingException {
+    public String demandeContact(@ModelAttribute("nouveauxContact") Contact demandeContact) throws MessagingException {
        mailService.sendEmailContact(demandeContact.getAdresseEmail(), demandeContact.getSujet(),demandeContact.getMessage());
        return "contact";
    }
