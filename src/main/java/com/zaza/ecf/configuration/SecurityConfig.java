@@ -36,11 +36,6 @@ public class SecurityConfig {
                     .sessionManagement(httpSecuritySessionManagementConfigurer ->httpSecuritySessionManagementConfigurer
                             .sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                     .authorizeHttpRequests((authorize) -> authorize
-                            .requestMatchers("/gestion-avis","/gestion-alimentation").hasRole("EMPLOYE")
-                            .requestMatchers("/ajout-rapport","/visualisation-alimentations").hasRole("VETERINAIRE")
-                            .requestMatchers("/gestion-utilisateurs","/gestion-horaires","/gestion-races","/gestion-animaux","/visualisation-rapports").hasRole("ADMINISTRATEUR")
-                            .requestMatchers("/gestion-habitats").hasAnyRole("ADMINISTRATEUR", "VETERINAIRE")
-                            //.requestMatchers("/gestion-services").hasAnyRole("ADMINISTRATEUR", "EMPLOYE")
                             .anyRequest().permitAll())
                     .formLogin((form) -> form
                             .loginPage("/login")

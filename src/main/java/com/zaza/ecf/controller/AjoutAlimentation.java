@@ -7,6 +7,7 @@ import com.zaza.ecf.model.Utilisateur;
 import com.zaza.ecf.service.AlimentationService;
 import com.zaza.ecf.service.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ public class AjoutAlimentation {
 
 
     @GetMapping("/ajout-alimentation")
+    @PreAuthorize("hasAuthority('ROLE_EMPLOYE')")
     public String ajoutAlimentation(Model model) {
         Alimentation nouvelAlimentation = new Alimentation();
         model.addAttribute("nouvelAlimentation", nouvelAlimentation);
@@ -32,6 +34,7 @@ public class AjoutAlimentation {
     }
 
     @PostMapping("/creerAlimentationModel")
+    @PreAuthorize("hasAuthority('ROLE_EMPLOYE')")
     public String creerAlimentation(@ModelAttribute("nouvelAlimentation") Alimentation alimentation) {
         Utilisateur defaultUtilisateur = new Utilisateur();
         defaultUtilisateur.setId(1L);

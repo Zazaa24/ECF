@@ -8,6 +8,7 @@ import com.zaza.ecf.service.HabitatService;
 import com.zaza.ecf.service.ImageService;
 import com.zaza.ecf.service.RaceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,7 @@ public class GestionAnimalController {
     public HabitatService habitatService;
 
     @GetMapping("gestion-animaux")
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRATEUR')")
     public String gestionAnimal(Model model) {
         model.addAttribute("listeAnimal",animalService.recupererListeAnimal());
         Animal nouvelAnimal = new Animal();
@@ -38,24 +40,28 @@ public class GestionAnimalController {
     }
 
     @PostMapping("/creerAnimalModel")
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRATEUR')")
     public String creerAnimal(@ModelAttribute("nouvelAnimal") Animal animal) {
         animalService.creerAnimal(animal);
         return "redirect:gestion-animaux";
     }
 
     @PostMapping("/modifierAnimalModel/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRATEUR')")
     public String  modifierAnimal(@PathVariable Long id, @ModelAttribute Animal animal) {
         animalService.modifierAnimal((animal));
         return "redirect:../gestion-animaux";
     }
 
     @GetMapping("/supprimerAnimalModel/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRATEUR')")
     public String supprimerAnimal(@PathVariable Long id) {
         animalService.supprimerAnimal(id);
         return "redirect:../gestion-animaux";
     }
 
     @PostMapping("creerImageAnimal/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRATEUR')")
     public String creerImageAnimal(@PathVariable Long id,Model model, @RequestParam("file") MultipartFile fichier) throws IOException {
         Image image = new Image();
         image.setImage(fichier.getBytes());
@@ -67,6 +73,7 @@ public class GestionAnimalController {
     }
 
     @GetMapping("/supprimerImageAnimalModel/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRATEUR')")
     public String supprimerImageAnimal(@PathVariable Long id) {
         imageService.supprimerImage(id);
         return "redirect:../gestion-animaux";

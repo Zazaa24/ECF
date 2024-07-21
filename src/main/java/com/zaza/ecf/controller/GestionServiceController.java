@@ -26,7 +26,7 @@ public class GestionServiceController {
     }
 
     @PostMapping("/creerServiceModel")
-    @PreAuthorize("hasAuthority('ADMINISTRATEUR')")
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRATEUR')")
     public String creerService(@ModelAttribute("nouveauxService") ServiceZoo servicezoo) {
         serviceService.creerService(servicezoo);
         return "redirect:gestion-services";
@@ -40,7 +40,7 @@ public class GestionServiceController {
     }
 
     @GetMapping("/supprimerServiceModel/{id}")
-    @PreAuthorize("hasAuthority('ADMINISTRATEUR')")
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRATEUR')")
     public String supprimerService(@PathVariable Long id) {
         serviceService.supprimerService(id);
         return "redirect:../gestion-services";
