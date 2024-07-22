@@ -32,6 +32,10 @@ public class UtilisateurService {
         return repo.findById(id);
     }
 
+    public Optional<Utilisateur> recupererUtilisateurParUsername(String username){
+        return repo.findByUsername(username);
+    }
+
     public Utilisateur modifierUtilisateur (Utilisateur utilisateur) {
         repo.save(utilisateur);
         return utilisateur;

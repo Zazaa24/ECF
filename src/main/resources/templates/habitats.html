@@ -188,8 +188,8 @@
                     <div class="info">
                       <h3 class="border-custom"  th:text="${animal.prenom}"></h3>
                       <ul>
-                        <li th:text="${animal.race.label}"><strong>Race</strong>: Chat</li>
-                        <li th:text="${animal.etat}"><strong>Etat</strong>: Malade</li>
+                        <li><strong>Race</strong>: <span th:text="${animal.race.label}">Chat</span></li>
+                        <li><strong>Etat</strong>: <span th:text="${animal.etat}">Malade</span></li>
                       </ul>
                     </div>
                   </div>

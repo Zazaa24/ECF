@@ -29,7 +29,8 @@ public class AccueilController {
 
 
     @GetMapping("/accueil")
-    public String accueil(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model, Authentication authentication) {
+    public String accueil(@RequestParam(name="etat", required = false) String etat, Model model, Authentication authentication) {
+        model.addAttribute("etat", etat);
         model.addAttribute("listeAvis", avisService.recupererListeAvisParVisible(true));
         model.addAttribute("listeService", serviceService.recupererListeService());
         model.addAttribute("listeHabitat", habitatService.recupererListeHabitat());
@@ -45,7 +46,7 @@ public class AccueilController {
     public String creerAvis(@ModelAttribute("nouvelAvis") Avis avis) {
         avis.setEstVisible(false);
         avisService.creerAvis(avis);
-        return "redirect:accueil";
+        return "redirect:accueil?etat=success";
     }
 
 

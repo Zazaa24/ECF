@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ContactController {
@@ -18,7 +19,8 @@ public class ContactController {
     public MailService mailService;
 
    @GetMapping("/contact")
-    public String contact(Model model){
+    public String contact(@RequestParam(name="etat", required = false) String etat, Model model){
+       model.addAttribute("etat", etat);
        Contact nouveauxContact = new Contact();
        model.addAttribute("nouveauxContact", nouveauxContact);
        return "contact";
@@ -27,7 +29,7 @@ public class ContactController {
    @PostMapping("/demandeContact")
     public String demandeContact(@ModelAttribute("nouveauxContact") Contact demandeContact) throws MessagingException {
        mailService.sendEmailContact(demandeContact.getAdresseEmail(), demandeContact.getSujet(),demandeContact.getMessage());
-       return "contact";
+       return "contact?etat=success";
    }
 }
 

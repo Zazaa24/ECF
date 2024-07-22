@@ -295,6 +295,22 @@
     </div>
   </div>
 
+  <div class="modal fade" id="successModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" >Succès</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body align-items-center">
+
+          <h2> Votre avis a été créé </h2>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
 </main><!-- End #main -->
 
 <!-- ======= Footer ======= -->
@@ -317,6 +333,18 @@
 
 <!-- Main JS File -->
 <script th:src="@{/js/main.js}" src="../static/js/main.js"></script>
+<script type="text/javascript" th:inline="javascript"	>
+
+  window.onload = function () {
+      if([[${etat}]] === 'success'){
+          OpenBootstrapPopup();
+    }
+};
+function OpenBootstrapPopup() {
+    var myModal = new bootstrap.Modal(document.getElementById("successModal"), {});
+    myModal.show();
+}
+</script>
 
 </body>
 
