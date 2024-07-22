@@ -17,20 +17,16 @@ J''ai été étonné en voyant que le zoo est enfaîte assez grand , les animati
 
 INSERT INTO habitat(nom,description,commentaire_habitat)
 VALUES
-('Enclos terrestres','Ces habitats sont conçus pour les animaux terrestres ,
-ils comprennent des espaces herbeux, des rochers, des arbres et parfois des étangs.',
-'Nous pouvons trouvé dans cette habitat des animaux tel que les lions,les girafes,les éléphants mais aussi les ours.'
-),
-('Volières','Pour les oiseaux, les volières sont des espaces spacieux avec des perchoirs, des nichoirs et des zones de vol.',
-'On peut trouvé dans cette habitat des espèces comme les perroquets, les aigles et les flamants roses.'),
-('Aquariums',' Les zoos peuvent également inclure des aquariums pour les poissons et autres créatures aquatiques.
-Ces habitats sont remplis d’eau et contiennent des récifs, des plantes et des cachettes pour les poissons.',
-'On peut trouvé dans cette habitat des éspéces comme les requins,les alligators mais encore des phoques'),
-('Enclos pour primates','Cette enclos spécialement aménagés avec des arbres,
-des cordes et des structures pour grimper et se balancer.',
-'Nous pouvons trouvé dans cette habitat des éspéces comme le singe ou le lémurien'),
-('Enclos nocturnes',' Certains animaux ont besoin d’habitats sombres et calmes pour la journée.',
-'Nous pouvons trouvé dans cette habitat des éspéces comme le hiboux ou la chauve-souris');
+('Savane','La savane est une formation végétale propre aux régions chaudes, caractérisée par la dominance des hautes herbes.
+Elle se trouve principalement dans les régions tropicales où il y a une longue saison sèche.
+On distingue différents types de savanes en fonction de la densité du peuplement végétal : la savane boisée, la savane arborée, la savane arbustive et la savane herbeuse',
+'Nous pouvons trouvé dans cette habitat des animaux tel que les lions,les girafes,les éléphants mais aussi les ours.'),
+('Jungle','Une jungle est une formation végétale arborée qui prospère sous un climat chaud et humide, avec une courte saison sèche1. Elle est caractéristique des régions de mousson,
+notamment en Asie du Sud-Est et en Inde.',
+'On peut trouvé dans cette habitat des espèces comme les panthére noire, le python de séba.'),
+('Marais',' un marais est une couche d’eau stagnante, en général peu profonde, et envahie par la végétation aquatique ou herbacée. C’est une zone humide.
+La végétation des marais est constituée d’espèces adaptées au milieu humide. Sa composition varie selon la hauteur de l’eau, l’importance des périodes d’assèchement et le taux de salinité',
+'On peut trouvé dans cette habitat des éspéces comme les alligator ou les salamandres');
 
 INSERT INTO race("label")
 VALUES
@@ -38,15 +34,10 @@ VALUES
 ('Girafe'),
 ('Lion'),
 ('Ours'),
-('Perroquet'),
-('Aigle'),
-('Flamant rose'),
-('Requin'),
 ('Alligator'),
-('Singe'),
-('Lémurien'),
-('Hiboux'),
-('Chauve-souris');
+('Python de séba'),
+('Panthére noire'),
+('Salamandre');
 
 INSERT INTO "role"("label")
 VALUES
@@ -72,15 +63,10 @@ VALUES
 ('Longcou','En pleine forme',2,1),
 ('Simbad','En repas',3,1),
 ('Balou','Malade',4,1),
-('Pierro','En pleine forme',5,2),
-('Eagle','Bléssé',6,2),
-('Pink','Endormi',7,2),
-('Grossedent','En repas',8,3),
-('Alli','En repas',9,3),
-('Toto','En pleine forme',10,4),
-('Titi','Malade',11,4),
-('Bou','Endormi',12,5),
-('Dracula','En repas',13,5);
+('Alli','En repas',5,3),
+('Toto','En pleine forme',6,2),
+('Titi','Malade',8,3),
+('Bou','Endormi',7,2);
 
 INSERT INTO alimentation(nourriture_propose,quantite,"date","time",utilisateur_id,animal_id)
 VALUES
@@ -88,15 +74,11 @@ VALUES
 ('Bourgeon et feuille','60kg','2024-06-20','10:20:20',3,2),
 ('Viande','7kg','2024-06-20','10:20:20',3,3),
 ('Ecorce d''arbre et noix','15kg','2024-06-20','10:20:20',3,4),
-('Graine','8g','2024-06-20','10:20:20',3,5),
-('Viande','250g','2024-06-20','10:20:20',3,6),
+('Viande','250g','2024-06-20','10:20:20',3,8),
 ('Larve d''insecte','60g','2024-06-20','10:20:20',3,7),
-('Viande','5kg','2024-06-20','10:20:20',3,8),
-('Viande','5kg','2024-06-20','10:20:20',3,9),
-('Fruit','500g','2024-06-20','10:20:20',3,10),
-('Fruit','500g','2024-06-20','10:20:20',3,11),
-('Viande','500g','2024-06-20','10:20:20',3,12),
-('Insecte','100g','2024-06-20','10:20:20',3,13);
+('Viande','5kg','2024-06-20','10:20:20',3,6),
+('Viande','5kg','2024-06-20','10:20:20',3,5);
+
 
 INSERT INTO service(nom,description)
 VALUES
@@ -113,7 +95,6 @@ VALUES
 ('Vendredi','10h a 17h',5),
 ('Samedi','9h a 18h',6),
 ('Dimanche','9h a 17h',7);
-
 
 
 
