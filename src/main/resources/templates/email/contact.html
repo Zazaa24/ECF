@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <p> Bonjour Arcadia,<br />
+        Un message a été envoyé par <span th:text="${recipientName}"></span> via l'interface de contact Arcadia.<br />
+        Voici le message: <br /><br /><br />
+        
+        <b>Sujet: </b><span th:text="${subject}"></span><br /><br />
+        <b>Message: </b><span th:text="${message}"></span><br /><br />
+    </p>
+  </body>
+</html>

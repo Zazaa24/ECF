@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Arcadia - Index</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link th:src="@{img/favicon.png}" src="../static/img/favicon.png" rel="icon">
+  <link th:src="@{img/apple-touch-icon.png}" src="../static/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap"  
+    th:href="@{https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap}" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link th:href="@{/vendor/aos/aos.css}" href="../static/vendor/aos/aos.css" rel="stylesheet">
+  <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.css}" href="../static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link th:href="@{/vendor/boxicons/css/boxicons.min.css}" href="../static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link th:href="@{/vendor/glightbox/css/glightbox.min.css}" href="../static/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link th:href="@{/vendor/swiper/swiper-bundle.min.css}" href="../static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link th:href="@{/css/style.css}" href="../static/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center" style="background-color: #E5F8F2;">
+
+      <div class="logo me-auto">
+        <h1><a th:href="accueil" href="index.html">Arcadia</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link" th:href="accueil" href="./accueil.html">Accueil</a></li>
+          <li><a class="nav-link" th:href="services" href="./services.html">Nos services</a></li>
+          <li><a class="nav-link" th:href="habitats" href="./habitats.html">Nos habitats</a></li>
+          <li><a class="nav-link active" th:href="contact" href="./contact.html">Contact</a></li>
+          <li sec:authorize="!isAuthenticated()">
+            <a class="nav-link" th:href="login" href="./login.html" >Se connecter</a>
+          </li>
+          <li sec:authorize="hasRole('ROLE_ADMINISTRATEUR')" class="dropdown"><a href="#"><span>Espace administrateur</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a class="nav-link" th:href="gestion-utilisateurs" href="./gestion-utilisateurs.html">Gestion
+                des utilisateurs</a></li>
+              <li><a class="nav-link" th:href="gestion-services" href="./gestion-services.html">Gestion des services</a>
+              </li>
+              <li><a class="nav-link" th:href="gestion-habitats" href="./gestion-habitats.html">Gestion des habitats</a>
+              </li>
+              <li><a class="nav-link" th:href="gestion-animaux" href="./gestion-animaux.html">Gestion des animaux</a>
+              </li>
+              <li><a class="nav-link" th:href="gestion-races" href="./gestion-races.html">Gestion des races</a>
+              </li>
+              <li><a class="nav-link" th:href="gestion-horaires" href="./gestion-horaires.html">Gestion des horaires</a>
+              </li>
+              <li><a class="nav-link" th:href="visualisation-rapports"
+                     href="./visualisation-rapports.html">Visualisation des rapports</a></li>
+            </ul>
+          </li>
+          <li sec:authorize="hasRole('ROLE_EMPLOYE')" class="dropdown"><a href="#"><span>Espace employé</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a class="nav-link" th:href="gestion-avis" href="./gestion-avis.html">Gestion
+                des avis</a></li>
+              <li><a class="nav-link" th:href="gestion-services" href="./gestion-services.html">Gestion des
+                services</a>
+              </li>
+              <li><a class="nav-link" th:href="ajout-alimentation" href="./ajout-alimentation.html">Ajout de
+                l'alimentation</a>
+              </li>
+            </ul>
+          </li>
+          <li sec:authorize="hasRole('ROLE_VETERINAIRE')" class="dropdown"><a href="#"><span>Espace vétérinaire</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a class="nav-link" th:href="ajout-rapport" href="./ajout-rapport.html">Ajout d'un rapport</a></li>
+              <li><a class="nav-link" th:href="gestion-habitats" href="./gestion-habitats.html">Gestion des habitats</a>
+              </li>
+              <li><a class="nav-link" th:href="visualisation-alimentations" href="./visualisation-alimentations.html">Visualisation des alimentations</a>
+              </li>
+            </ul>
+          </li>
+          <li sec:authorize="isAuthenticated()"><form th:action="@{logout}" method="post"> <button class="btn">Se déconnecter</button></form></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+     <!-- ======= Contact Section ======= -->
+     <section id="contact" class="contact section-bg">
+      <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+          <h2>Contactez nous</h2>
+        </div>
+
+        <div class="row">
+          <div data-aos="fade-left">
+            <form class="email-form" action="#" th:action="@{demandeContact}" method="post" th:object="${nouveauxContact}">
+              <div class="row">
+                <div class="form-group mt-3">
+                  <label for="email-contact">Votre Email</label>
+                  <input type="email" class="form-control" name="email" id="email-contact" required th:field="*{adresseEmail}">
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <label for="subject">Sujet</label>
+                <input type="text" class="form-control" name="subject" id="subject" required th:field="*{sujet}">
+              </div>
+              <div class="form-group mt-3">
+                <label for="message">Message</label>
+                <textarea class="form-control" name="message" id="message" rows="10" required th:field="*{message}"></textarea>
+              </div>
+              <div class="my-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Votre message a été envoyé. Merci</div>
+              </div>
+              <div class="text-center"><button type="submit" class="btn btn-primary custom-primary-button">Envoyer le message</button></div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+    <!-- End modal -->
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Arcadia</span></strong>. All Rights Reserved
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <!-- Vendor JS Files -->
+  <script th:src="@{/vendor/aos/aos.js}" src="../static/vendor/aos/aos.js"></script>
+  <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}" src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script th:src="@{/vendor/glightbox/js/glightbox.min.js}" src="../static/vendor/glightbox/js/glightbox.min.js"></script>
+  <script th:src="@{/vendor/isotope-layout/isotope.pkgd.min.js}" src="../static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script th:src="@{/vendor/swiper/swiper-bundle.min.js}" src="../static/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script th:src="@{/js/main.js}" src="../static/js/main.js"></script>
+
+</body>
+
+</html>
