@@ -127,6 +127,7 @@
                     <th scope="col" width="15%">Heure</th>
                     <th scope="col" width="20%">Nourriture</th>
                     <th scope="col" width="15%">Quantité</th>
+                    <th scope="col" width="20%">Utilisateur</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -137,6 +138,7 @@
                     <td><span th:text="${alimentation.time}"></span></td>
                     <td><span th:text="${alimentation.nourriturePropose}"></span></td>
                     <td><span th:text="${alimentation.quantite}"></span></td>
+                    <td><span th:text="${alimentation.utilisateur.username}"></span></td>
                   </tr>
                 </tbody>
               </table>

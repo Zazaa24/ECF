@@ -137,6 +137,7 @@
                   <th scope="col" width="10%">Heure</th>
                   <th scope="col" width="20%">Nourriture</th>
                   <th scope="col" width="20%">Quantité</th>
+                  <th scope="col" width="20%">Utilisateur</th>
                 </tr>
               </thead>
               <tbody>
@@ -148,6 +149,7 @@
                   <td th:text="${rapportVeterinaire.time}"><span></span></td>
                   <td th:text="${rapportVeterinaire.alimentation.nourriturePropose}"><span></span></td>
                   <td th:text="${rapportVeterinaire.alimentation.quantite}"><span></span></td>
+                  <td th:text="${rapportVeterinaire.utilisateur.username}"><span></span></td>
                 </tr>
               </tbody>
             </table>
